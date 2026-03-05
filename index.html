@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SISDEL - Automatización Inteligente</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0048ad",
+                        "secondary": "#facc15",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#0f1723",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Animation System */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal-left.active,
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .stagger-1 {
+            transition-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            transition-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            transition-delay: 0.3s;
+        }
+
+        .stagger-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* Glassmorphism enhanced */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Smooth reveal for images */
+        .img-reveal {
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .img-reveal.active {
+            clip-path: inset(0 0 0 0);
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .img-reveal');
+            revealElements.forEach(el => revealObserver.observe(el));
+        });
+    </script>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+    <!-- Header / Nav -->
+    <header
+        class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+        <div class="container mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="logo.png" alt="SISDEL Logo" class="h-12 w-auto object-contain">
+            </div>
+            <nav class="hidden md:flex items-center gap-10">
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="#soluciones">Soluciones</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="#nosotros">Sobre
+                    Nosotros</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="#vision">Visión</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="#contacto">Contacto</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button
+                    class="hidden lg:block bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-primary/20">
+                    Empezar Ahora
+                </button>
+                <button class="md:hidden text-slate-900 dark:text-white">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden pt-16 pb-24 lg:pt-32 lg:pb-40">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="flex-1 text-center lg:text-left reveal">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 text-primary text-xs font-bold uppercase tracking-wider mb-6 border border-secondary/20 stagger-1">
+                            <span class="relative flex h-2 w-2">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+                            </span>
+                            Innovación para PYMEs
+                        </div>
+                        <h1
+                            class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-slate-900 dark:text-white mb-6 stagger-2">
+                            Automatización Inteligente para el <span
+                                class="text-primary underline decoration-secondary decoration-4 underline-offset-8">Crecimiento</span>
+                            de tu PYME
+                        </h1>
+                        <p
+                            class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed stagger-3">
+                            Construimos la infraestructura digital que tu negocio necesita para escalar con eficiencia,
+                            eliminando procesos manuales y adoptando tecnología de vanguardia.
+                        </p>
+                        <div
+                            class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 stagger-4">
+                            <button
+                                class="w-full sm:w-auto px-8 py-4 bg-primary text-white font-bold rounded-xl hover:scale-105 active:scale-95 transition-all shadow-xl shadow-primary/30">
+                                Iniciar Transformación
+                            </button>
+                            <button
+                                class="w-full sm:w-auto px-8 py-4 bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 font-bold rounded-xl hover:bg-slate-50 transition-colors">
+                                Ver Soluciones
+                            </button>
+                        </div>
+                        <div
+                            class="mt-12 flex items-center justify-center lg:justify-start gap-6 grayscale opacity-60 stagger-4">
+                            <!-- Placeholder for trusted by logos -->
+                            <div class="text-xs font-bold uppercase tracking-widest text-slate-400">Confían en nosotros:
+                            </div>
+                            <div class="h-8 w-24 bg-slate-300 dark:bg-slate-700 rounded animate-pulse"></div>
+                            <div class="h-8 w-24 bg-slate-300 dark:bg-slate-700 rounded animate-pulse"></div>
+                        </div>
+                    </div>
+                    <div class="flex-1 relative reveal-right">
+                        <div
+                            class="absolute -top-10 -left-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse">
+                        </div>
+                        <div
+                            class="absolute -bottom-10 -right-10 w-64 h-64 bg-secondary/10 rounded-full blur-3xl animate-pulse">
+                        </div>
+                        <div
+                            class="relative rounded-2xl overflow-hidden shadow-2xl border-8 border-white dark:border-slate-800 animate-float">
+                            <img alt="Infraestructura Digital"
+                                class="w-full h-auto object-cover aspect-[4/3] img-reveal"
+                                data-alt="Modern tech office with people working on screens"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi3mIPdQ0qczmiyg6R0FW9mUeEjXuNUhKhWouixMzO1HLHlnMeaqDmNOO1X-W4quDECr3OycmGYLXOYrLVNcSOc3bj9bYezkvmpEWiVzAydMWB6lB8tcqAag7nvlWRUcvOlfSnXNNYAYWla4EYkAqHIypWvkKhDAr9oRGP-bamsBwwS8Gc8MGslglE5tkQjvOBtqvn327xEtCgzHiAcGUDH_C8VbuSCC7lWzezICoC18naCsPYB8njmFikJaOVYs-T0-wo0N36CRA" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Services Section -->
+        <section class="py-24 bg-slate-50 dark:bg-slate-900/50" id="soluciones">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto mb-20">
+                    <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-4">Servicios Especializados
+                    </h2>
+                    <h3 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-6">Nuestras Soluciones
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg">Impulsamos la rentabilidad de tu empresa a
+                        través de pilares tecnológicos diseñados para el mercado actual.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Service 1 -->
+                    <div
+                        class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:border-primary/50 transition-all group reveal stagger-1">
+                        <div
+                            class="h-14 w-14 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined text-3xl">precision_manufacturing</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Automatización Estratégica
+                        </h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Eliminamos tareas repetitivas mediante flujos de trabajo inteligentes que liberan el talento
+                            de tu equipo.
+                        </p>
+                    </div>
+                    <!-- Service 2 -->
+                    <div
+                        class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:border-primary/50 transition-all group reveal stagger-2">
+                        <div
+                            class="h-14 w-14 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined text-3xl">dashboard_customize</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Control Operativo</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Visibilidad total de tus procesos en tiempo real con dashboards personalizados y gestión
+                            centralizada.
+                        </p>
+                    </div>
+                    <!-- Service 3 -->
+                    <div
+                        class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:border-primary/50 transition-all group reveal stagger-3">
+                        <div
+                            class="h-14 w-14 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined text-3xl">trending_up</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Optimización de Recursos</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Maximizamos la rentabilidad reduciendo costos operativos mediante el uso eficiente de la
+                            tecnología.
+                        </p>
+                    </div>
+                    <!-- Service 4 -->
+                    <div
+                        class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:border-primary/50 transition-all group reveal stagger-4">
+                        <div
+                            class="h-14 w-14 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                            <span class="material-symbols-outlined text-3xl">database</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Inteligencia de Datos</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Convierte la información de tu negocio en decisiones accionables con análisis predictivo y
+                            big data.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About Us Section -->
+        <section class="py-24" id="nosotros">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="lg:w-1/2 reveal-left">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-4">
+                                <div
+                                    class="bg-primary aspect-square rounded-2xl flex flex-col items-center justify-center text-white text-center p-6">
+                                    <span class="text-4xl font-black mb-1">10+</span>
+                                    <span class="text-xs font-bold uppercase">Años de Experiencia</span>
+                                </div>
+                                <img alt="Equipo Colaborando"
+                                    class="rounded-2xl w-full aspect-[4/5] object-cover img-reveal"
+                                    data-alt="People collaborating around a laptop"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk--Rdy6Iqvwz9PoiviOeuwhka5paMDcjckrY5Vod0cTBtnx7xMlQbiQ4BDd5B7MUHsMqZWdy8EzsGXwvS6cCMOoJqIKjxSQ0VVtGnwK4azvFnnszdYPmiu9-NjgNXZZq56hiWy9MoQLGaZ9VP4oct0QgTjU96loDMxAxNQx_Ss8hYczpYFkHmG0LNW48NZpQhwbKSmRq1IYtyCYConi7kqTf3rkDZGvdGOOq4bDuRqgBctHR_oP6K0v_j0rAKGECTx1opC3urk-w" />
+                            </div>
+                            <div class="space-y-4 pt-8">
+                                <img alt="Tecnología SISDEL"
+                                    class="rounded-2xl w-full aspect-[4/5] object-cover img-reveal"
+                                    data-alt="Technological abstract interface"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuChfTz8pXlJlAjMN9b89GYxpfQDjjjpFfBzAW5vt3JHkz1VpedtZpa6t-hRj3KgtluYG2qwicPeQ0Kevl_BxU87SBXjnKGFyL0v8tk5T8b1Dbj3wF56sfay6kyIQ09cNF522YWYuF7O5aoXX652Y73N-P95rntxAzsKDOVZyd-D7mUExDHv4dAB5IXRESRZ4NsP4Q_SB63F-6i5z-gHqSfkj6SjVIWkiuc3n3Ub09jCNRyxmWYCA1i6P5BqScV8ZsplLsVgcCiiqC8" />
+                                <div
+                                    class="bg-secondary aspect-square rounded-2xl flex flex-col items-center justify-center text-primary text-center p-6">
+                                    <span class="text-4xl font-black mb-1">50+</span>
+                                    <span class="text-xs font-bold uppercase tracking-tighter">PYMEs Optimizadas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <h2 class="text-primary font-bold tracking-widest uppercase text-sm mb-4">Sobre SISDEL</h2>
+                        <h3 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-8">Sistemas de
+                            Desarrollo en Línea</h3>
+                        <p class="text-lg text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                            Somos una startup tecnológica dedicada a impulsar a las PYMEs a través de la innovación
+                            digital. En SISDEL, no solo desarrollamos software; transformamos la complejidad operativa
+                            en simplicidad funcional.
+                        </p>
+                        <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                            Nuestro enfoque se basa en entender los desafíos únicos de cada negocio para construir
+                            soluciones a medida que garantizan un crecimiento sostenible y escalable.
+                        </p>
+                        <ul class="space-y-4 mb-10">
+                            <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300 font-semibold">
+                                <span class="material-symbols-outlined text-primary">check_circle</span>
+                                Metodologías Ágiles de Desarrollo
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300 font-semibold">
+                                <span class="material-symbols-outlined text-primary">check_circle</span>
+                                Soporte Técnico Personalizado
+                            </li>
+                            <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300 font-semibold">
+                                <span class="material-symbols-outlined text-primary">check_circle</span>
+                                Seguridad de Datos Nivel Empresarial
+                            </li>
+                        </ul>
+                        <button
+                            class="px-8 py-3 border-2 border-primary text-primary font-bold rounded-xl hover:bg-primary hover:text-white transition-all">
+                            Conoce al Equipo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Vision Section -->
+        <section class="py-24 bg-primary text-white overflow-hidden relative" id="vision">
+            <!-- Background Decoration -->
+            <div class="absolute inset-0 opacity-10">
+                <svg height="100%" preserveaspectratio="none" viewbox="0 0 100 100" width="100%">
+                    <path d="M0 100 L100 0 L100 100 Z" fill="currentColor"></path>
+                </svg>
+            </div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="flex flex-col lg:flex-row items-center gap-20">
+                    <div class="lg:w-1/2 reveal-left">
+                        <h2 class="text-secondary font-bold tracking-widest uppercase text-sm mb-4">Nuestro Rumbo</h2>
+                        <h3 class="text-3xl md:text-5xl font-black mb-8 leading-tight">Nuestra Visión: Liderar la era
+                            del Software Factory SaaS</h3>
+                        <p class="text-xl text-blue-100 mb-10 leading-relaxed">
+                            Aspiramos a ser el referente indiscutible en la creación de ecosistemas digitales,
+                            convirtiéndonos en el socio estratégico que toda PYME en Latinoamérica necesita para su
+                            transformación digital.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                            <div class="flex flex-col gap-2">
+                                <span class="text-4xl font-bold text-secondary">2026</span>
+                                <span class="text-sm font-medium text-blue-200">Meta de expansión regional</span>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <span class="text-4xl font-bold text-secondary">100%</span>
+                                <span class="text-sm font-medium text-blue-200">Infraestructura en la nube</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 relative reveal-right">
+                        <!-- Referenced visual style from IMAGE_2 (Professional dashboard/interface) -->
+                        <div class="bg-white/10 backdrop-blur-md p-2 rounded-3xl border border-white/20 shadow-2xl">
+                            <div class="bg-slate-900 rounded-2xl overflow-hidden aspect-[16/10] relative">
+                                <div
+                                    class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/40 to-slate-900/90">
+                                    <span
+                                        class="material-symbols-outlined text-white/50 text-8xl">auto_awesome_motion</span>
+                                </div>
+                                <div class="absolute top-4 left-4 flex gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                </div>
+                                <div class="absolute bottom-6 left-6 right-6">
+                                    <div class="h-4 bg-white/20 rounded w-1/2 mb-2"></div>
+                                    <div class="h-2 bg-white/10 rounded w-3/4 mb-1"></div>
+                                    <div class="h-2 bg-white/10 rounded w-2/3"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="absolute -bottom-6 -right-6 bg-secondary text-primary p-6 rounded-2xl font-bold shadow-xl rotate-3">
+                            Liderando el Futuro
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- CTA Section -->
+        <section class="py-24 bg-white dark:bg-background-dark">
+            <div class="container mx-auto px-6">
+                <div
+                    class="bg-slate-50 dark:bg-slate-800/50 rounded-[3rem] p-12 md:p-20 text-center border border-slate-100 dark:border-slate-800 shadow-xl overflow-hidden relative reveal">
+                    <!-- Abstract Background Pattern -->
+                    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl">
+                    </div>
+                    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-secondary/5 rounded-full blur-3xl">
+                    </div>
+                    <div class="relative z-10 max-w-3xl mx-auto">
+                        <h2 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-8">
+                            ¿Listo para automatizar tu éxito?
+                        </h2>
+                        <p class="text-xl text-slate-600 dark:text-slate-400 mb-12">
+                            Únete a las empresas que ya están ahorrando tiempo y aumentando sus ingresos con nuestras
+                            soluciones inteligentes.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                            <button
+                                class="w-full sm:w-auto px-10 py-5 bg-primary text-white font-bold rounded-2xl hover:bg-primary/90 transition-all shadow-xl shadow-primary/30 flex items-center justify-center gap-2">
+                                Comenzar ahora gratis
+                                <span class="material-symbols-outlined">arrow_forward</span>
+                            </button>
+                            <button
+                                class="w-full sm:w-auto px-10 py-5 bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white font-bold rounded-2xl hover:bg-slate-50 transition-colors">
+                                Agendar Consultoría
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 lg:col-span-1">
+                    <div class="flex items-center mb-6">
+                        <img src="logo.png" alt="SISDEL Logo" class="h-10 w-auto object-contain brightness-0 invert">
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6">
+                        Sistemas de Desarrollo en Línea. Empoderando a las PYMEs mediante la automatización y la
+                        infraestructura digital inteligente.
+                    </p>
+                    <div class="flex gap-4">
+                        <a class="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                            href="#">
+                            <span class="material-symbols-outlined">public</span>
+                        </a>
+                        <a class="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                            href="#">
+                            <span class="material-symbols-outlined">alternate_email</span>
+                        </a>
+                        <a class="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                            href="#">
+                            <span class="material-symbols-outlined">share</span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-6">Soluciones</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li><a class="hover:text-primary transition-colors" href="#">Automatización</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Control de Operaciones</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">SaaS personalizado</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Consultoría IT</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-6">Empresa</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li><a class="hover:text-primary transition-colors" href="#">Sobre Nosotros</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Nuestra Visión</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Blog Tech</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-6">Suscríbete</h3>
+                    <p class="text-xs mb-4">Recibe las últimas novedades en automatización para tu negocio.</p>
+                    <div class="flex gap-2">
+                        <input
+                            class="bg-slate-800 border-none rounded-lg py-2 px-4 text-sm w-full focus:ring-1 focus:ring-primary"
+                            placeholder="Tu email" type="email" />
+                        <button class="bg-primary text-white p-2 rounded-lg hover:bg-primary/90 transition-colors">
+                            <span class="material-symbols-outlined">send</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="border-t border-slate-800 pt-8 flex flex-col md:row items-center justify-between gap-4 text-xs font-medium">
+                <p>© 2024 SISDEL - Sistemas de Desarrollo en Línea. Todos los derechos reservados.</p>
+                <div class="flex gap-6">
+                    <a class="hover:text-white" href="#">Privacidad</a>
+                    <a class="hover:text-white" href="#">Términos</a>
+                    <a class="hover:text-white" href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
