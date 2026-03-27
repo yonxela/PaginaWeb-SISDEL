@@ -197,20 +197,18 @@
         </section>
 
         <!-- Desarrollo personalizado -->
-        <section class="py-24 bg-white border-t border-slate-100">
+        <section class="py-12 bg-white border-t border-slate-100">
             <div class="container mx-auto px-6">
-                <div class="bg-primary rounded-[2rem] p-12 md:p-16 text-center text-white relative overflow-hidden max-w-5xl mx-auto">
-                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
-                    <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 bg-secondary/10 rounded-full blur-3xl"></div>
+                <div class="bg-primary rounded-2xl p-8 md:p-10 text-center text-white relative overflow-hidden max-w-3xl mx-auto">
                     <div class="relative z-10">
-                        <span class="material-symbols-outlined text-secondary mb-5" style="font-size:48px">build</span>
-                        <h2 class="text-3xl md:text-4xl font-black mb-5">¿Necesitas algo <span class="text-secondary">diferente</span>?</h2>
-                        <p class="text-lg text-blue-100 mb-10 leading-relaxed max-w-2xl mx-auto">En cada una de nuestras secciones —y más allá de ellas— podemos desarrollar soluciones 100% personalizadas. ¿Tienes una idea, un problema o necesitas una app o sistema a la medida? Nuestro equipo lo construye para ti.</p>
-                        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <a href="https://wa.me/50241251133?text=Necesito%20un%20desarrollo%20personalizado" class="px-8 py-4 bg-secondary text-primary font-bold rounded-xl hover:scale-105 active:scale-95 transition-all shadow-xl inline-flex items-center gap-2">
-                                Cuéntanos tu Idea <span class="material-symbols-outlined">chat</span>
+                        <span class="material-symbols-outlined text-secondary mb-3" style="font-size:28px">build</span>
+                        <h2 class="text-xl md:text-2xl font-bold mb-3">¿Necesitas algo <span class="text-secondary">diferente</span>?</h2>
+                        <p class="text-sm text-blue-100 mb-6 leading-relaxed max-w-xl mx-auto">Podemos desarrollar soluciones 100% personalizadas. ¿Tienes una idea o necesitas una app a la medida? Nuestro equipo lo construye para ti.</p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                            <a href="https://wa.me/50241251133?text=Necesito%20un%20desarrollo%20personalizado" class="px-6 py-2.5 bg-secondary text-primary font-bold rounded-lg hover:scale-105 active:scale-95 transition-all shadow-md inline-flex items-center gap-2 text-sm">
+                                Cuéntanos tu Idea <span class="material-symbols-outlined" style="font-size:18px">chat</span>
                             </a>
-                            <a href="index.html" class="px-8 py-4 bg-white/10 border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/20 transition-all">Volver al Inicio</a>
+                            <a href="index.html" class="px-6 py-2.5 bg-white/10 border border-white/30 text-white font-semibold rounded-lg hover:bg-white/20 transition-all text-sm">Volver al Inicio</a>
                         </div>
                     </div>
                 </div>
@@ -384,6 +382,14 @@
         function scrollToPanel() {
             document.getElementById('detail-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+        // Auto-open category from URL hash (e.g. soluciones.html#seguridad)
+        document.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && categories[hash]) {
+                setTimeout(() => openCategory(hash), 300);
+            }
+        });
     </script>
 </body>
 </html>
