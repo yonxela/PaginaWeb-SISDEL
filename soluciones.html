@@ -71,6 +71,17 @@
         }
         .cat-icon span { color: #facc15; }
 
+        /* Click indicator */
+        .click-hint {
+            position: absolute;
+            bottom: 12px;
+            right: 14px;
+            color: rgba(250,204,21,0.5);
+            transition: all 0.3s;
+        }
+        .cat-card:hover .click-hint { color: #facc15; transform: translateX(3px); }
+        .cat-card.active .click-hint { color: rgba(0,72,173,0.4); }
+
         /* Detail panel */
         #detail-panel {
             max-height: 0;
@@ -121,45 +132,48 @@
                     Ecosistema Tecnológico SISDEL
                 </div>
                 <h1 class="text-4xl md:text-5xl font-black leading-tight tracking-tight mb-4">
-                    Nuestras <span class="text-secondary">6 Soluciones</span>
+                    Nuestras <span class="text-secondary">Soluciones</span>
                 </h1>
                 <p class="text-base text-blue-200 max-w-xl mx-auto">
-                    Selecciona una rama y descubre cómo transformamos tu negocio.
+                    Selecciona una sección y descubre cómo transformamos tu negocio.
                 </p>
             </div>
 
         <!-- ─── 6 CATEGORY CARDS ─── -->
             <div class="container mx-auto px-4 pb-0" id="categorias">
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 lg:gap-4" id="cards-grid">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-5 max-w-5xl mx-auto" id="cards-grid">
 
                     <!-- 1. Seguridad -->
                     <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="seguridad" onclick="openCategory('seguridad')">
                         <span class="cat-num">01</span>
-                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
-                            <span class="material-symbols-outlined text-3xl">shield</span>
+                        <div class="cat-icon h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined" style="font-size:36px">shield</span>
                         </div>
                         <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Seguridad</h3>
                         <p class="cat-desc text-white/60 text-xs leading-snug">Acceso, vigilancia y emergencias</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
                     </div>
 
                     <!-- 2. Restaurantes -->
                     <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="restaurantes" onclick="openCategory('restaurantes')">
                         <span class="cat-num">02</span>
-                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
-                            <span class="material-symbols-outlined text-3xl">restaurant</span>
+                        <div class="cat-icon h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined" style="font-size:36px">restaurant</span>
                         </div>
                         <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Restaurantes</h3>
                         <p class="cat-desc text-white/60 text-xs leading-snug">Servicio ágil y tiempos medidos</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
                     </div>
 
                     <!-- 3. Residencial -->
                     <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="residencial" onclick="openCategory('residencial')">
                         <span class="cat-num">03</span>
-                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
-                            <span class="material-symbols-outlined text-3xl">home_work</span>
+                        <div class="cat-icon h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined" style="font-size:36px">home_work</span>
                         </div>
                         <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Residencial</h3>
                         <p class="cat-desc text-white/60 text-xs leading-snug">Gestión y control de comunidades</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
                     </div>
 
                     <!-- 4. Productividad -->
@@ -170,6 +184,7 @@
                         </div>
                         <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Productividad</h3>
                         <p class="cat-desc text-white/60 text-xs leading-snug">Equipos y reuniones inteligentes</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
                     </div>
 
                     <!-- 5. Promoción -->
@@ -180,6 +195,7 @@
                         </div>
                         <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Promoción</h3>
                         <p class="cat-desc text-white/60 text-xs leading-snug">Fidelización y base de clientes</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
                     </div>
 
                     <!-- 6. Salud -->
@@ -190,6 +206,7 @@
                         </div>
                         <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Salud</h3>
                         <p class="cat-desc text-white/60 text-xs leading-snug">Consultas y recordatorios médicos</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
                     </div>
 
                 </div>
