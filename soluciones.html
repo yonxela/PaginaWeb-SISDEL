@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>SISDEL - Soluciones Tecnológicas</title>
-    <meta name="description" content="Descubre las 6 ramas de soluciones tecnológicas de SISDEL: Seguridad, Restaurantes, Residencial, Productividad, Fidelización y Salud. Automatización inteligente para tu empresa.">
+    <meta name="description" content="Descubre las soluciones tecnológicas de SISDEL: Seguridad, Restaurantes, Residencial, Productividad, Fidelización y Salud.">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%230048ad%22 font-family=%22Arial, sans-serif%22 font-weight=%22bold%22>S</text></svg>">
@@ -14,7 +14,7 @@
             darkMode: "class",
             theme: {
                 extend: {
-                    colors: { "primary": "#0048ad", "secondary": "#facc15" },
+                    colors: { "primary": "#0048ad", "secondary": "#facc15", "background-light": "#f5f7f8" },
                     fontFamily: { "display": ["Inter", "sans-serif"] },
                 },
             },
@@ -23,89 +23,65 @@
     <style>
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
 
-        /* ── Category Cards ── */
         .cat-card {
             cursor: pointer;
-            background: linear-gradient(160deg, #0048ad 0%, #003080 100%);
-            border: 3px solid transparent;
+            background: white;
+            border: 2px solid #e2e8f0;
             transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
-        .cat-card::before {
+        .cat-card::after {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(250,204,21,0.06) 0%, transparent 60%);
-            transition: opacity 0.35s;
-            opacity: 0;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: #0048ad;
+            transform: scaleX(0);
+            transition: transform 0.3s;
         }
-        .cat-card:hover::before { opacity: 1; }
         .cat-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            border-color: #facc15;
-            box-shadow: 0 20px 50px rgba(0,72,173,0.35);
+            transform: translateY(-6px);
+            border-color: #0048ad;
+            box-shadow: 0 20px 40px rgba(0,72,173,0.12);
         }
+        .cat-card:hover::after { transform: scaleX(1); }
+        .cat-card:hover .click-hint { color: #0048ad; transform: translateX(3px); }
+
         .cat-card.active {
-            background: linear-gradient(160deg, #facc15 0%, #f59e0b 100%);
-            border-color: #facc15;
-            transform: translateY(-6px) scale(1.03);
-            box-shadow: 0 24px 55px rgba(250,204,21,0.35);
+            background: linear-gradient(135deg, #0048ad 0%, #003080 100%);
+            border-color: #0048ad;
+            transform: translateY(-6px);
+            box-shadow: 0 24px 50px rgba(0,72,173,0.25);
         }
-        .cat-card.active .cat-icon { background: rgba(0,72,173,0.15); }
-        .cat-card.active .cat-icon span { color: #0048ad; }
-        .cat-card.active .cat-label { color: #0a1628; }
-        .cat-card.active .cat-desc { color: rgba(10,22,40,0.7); }
-        .cat-card.active .cat-num { color: rgba(0,72,173,0.3); }
+        .cat-card.active::after { transform: scaleX(1); background: #facc15; }
+        .cat-card.active .cat-icon { background: rgba(255,255,255,0.15); }
+        .cat-card.active .cat-icon span { color: #facc15; }
+        .cat-card.active .cat-label { color: white; }
+        .cat-card.active .cat-desc { color: rgba(255,255,255,0.7); }
+        .cat-card.active .cat-num { color: rgba(255,255,255,0.1); }
+        .cat-card.active .click-hint { color: rgba(255,255,255,0.5); }
 
-        /* number */
         .cat-num {
-            font-size: 2.5rem;
-            font-weight: 900;
-            line-height: 1;
-            color: rgba(255,255,255,0.08);
-            position: absolute;
-            top: 10px;
-            right: 14px;
-            font-family: 'Inter', sans-serif;
+            font-size: 3rem; font-weight: 900; line-height: 1;
+            color: rgba(0,72,173,0.06);
+            position: absolute; top: 12px; right: 16px;
         }
-        .cat-icon span { color: #facc15; }
-
-        /* Click indicator */
         .click-hint {
-            position: absolute;
-            bottom: 12px;
-            right: 14px;
-            color: rgba(250,204,21,0.5);
-            transition: all 0.3s;
+            position: absolute; bottom: 16px; right: 16px;
+            color: #cbd5e1; transition: all 0.3s;
         }
-        .cat-card:hover .click-hint { color: #facc15; transform: translateX(3px); }
-        .cat-card.active .click-hint { color: rgba(0,72,173,0.4); }
 
-        /* Detail panel */
-        #detail-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
-            opacity: 0;
-        }
+        #detail-panel { max-height: 0; overflow: hidden; transition: max-height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease; opacity: 0; }
         #detail-panel.open { max-height: 2000px; opacity: 1; }
-
         #detail-content { transition: opacity 0.3s ease; }
         #detail-content.fading { opacity: 0; }
 
         .feature-item { transition: all 0.2s; }
-        .feature-item:hover { background: #f1f5f9; }
-
-        .hero-gradient { background: linear-gradient(135deg, #0048ad 0%, #003080 50%, #001d52 100%); }
-
-        /* cards section bg */
-        .cards-section {
-            background: linear-gradient(180deg, #0a1628 0%, #0f1e38 100%);
-        }
+        .feature-item:hover { background: #f8fafc; border-color: #0048ad30; }
     </style>
 </head>
-<body class="bg-gray-50 text-slate-900 antialiased">
+<body class="bg-white text-slate-900 antialiased">
 
     <!-- Header -->
     <header class="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md">
@@ -124,121 +100,126 @@
     </header>
 
     <main>
-        <!-- Hero compacto -->
-        <section class="cards-section text-white pt-12 pb-0 relative overflow-hidden">
-            <div class="container mx-auto px-6 relative z-10 text-center max-w-3xl mb-10">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sm font-semibold mb-5 backdrop-blur-sm">
+        <!-- Hero Section -->
+        <section class="pt-20 pb-12 bg-white">
+            <div class="container mx-auto px-6 text-center max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-sm font-semibold mb-6">
                     <span class="material-symbols-outlined text-secondary" style="font-size:16px">auto_awesome</span>
                     Ecosistema Tecnológico SISDEL
                 </div>
-                <h1 class="text-4xl md:text-5xl font-black leading-tight tracking-tight mb-4">
-                    Nuestras <span class="text-secondary">Soluciones</span>
+                <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-slate-900 mb-5">
+                    Nuestras <span class="text-primary underline decoration-secondary decoration-4 underline-offset-8">Soluciones</span>
                 </h1>
-                <p class="text-base text-blue-200 max-w-xl mx-auto">
+                <p class="text-lg text-slate-500 max-w-xl mx-auto leading-relaxed">
                     Selecciona una sección y descubre cómo transformamos tu negocio.
                 </p>
             </div>
+        </section>
 
-        <!-- ─── 6 CATEGORY CARDS ─── -->
-            <div class="container mx-auto px-4 pb-0" id="categorias">
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-5 max-w-5xl mx-auto" id="cards-grid">
+        <!-- 6 Category Cards -->
+        <section class="pb-16 pt-4 bg-white" id="categorias">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-5 max-w-5xl mx-auto" id="cards-grid">
 
                     <!-- 1. Seguridad -->
-                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="seguridad" onclick="openCategory('seguridad')">
+                    <div class="cat-card rounded-2xl p-7 lg:p-8 text-left relative" data-cat="seguridad" onclick="openCategory('seguridad')">
                         <span class="cat-num">01</span>
-                        <div class="cat-icon h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center mb-5">
-                            <span class="material-symbols-outlined" style="font-size:36px">shield</span>
+                        <div class="cat-icon h-16 w-16 bg-primary/8 rounded-2xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-primary" style="font-size:36px">shield</span>
                         </div>
-                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Seguridad</h3>
-                        <p class="cat-desc text-white/60 text-xs leading-snug">Acceso, vigilancia y emergencias</p>
-                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
+                        <h3 class="cat-label font-extrabold text-slate-900 text-lg mb-1.5">Seguridad</h3>
+                        <p class="cat-desc text-slate-500 text-sm leading-snug pr-6">Acceso, vigilancia y emergencias</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:22px">arrow_forward</span>
                     </div>
 
                     <!-- 2. Restaurantes -->
-                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="restaurantes" onclick="openCategory('restaurantes')">
+                    <div class="cat-card rounded-2xl p-7 lg:p-8 text-left relative" data-cat="restaurantes" onclick="openCategory('restaurantes')">
                         <span class="cat-num">02</span>
-                        <div class="cat-icon h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center mb-5">
-                            <span class="material-symbols-outlined" style="font-size:36px">restaurant</span>
+                        <div class="cat-icon h-16 w-16 bg-primary/8 rounded-2xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-primary" style="font-size:36px">restaurant</span>
                         </div>
-                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Restaurantes</h3>
-                        <p class="cat-desc text-white/60 text-xs leading-snug">Servicio ágil y tiempos medidos</p>
-                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
+                        <h3 class="cat-label font-extrabold text-slate-900 text-lg mb-1.5">Restaurantes</h3>
+                        <p class="cat-desc text-slate-500 text-sm leading-snug pr-6">Servicio ágil y tiempos medidos</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:22px">arrow_forward</span>
                     </div>
 
                     <!-- 3. Residencial -->
-                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="residencial" onclick="openCategory('residencial')">
+                    <div class="cat-card rounded-2xl p-7 lg:p-8 text-left relative" data-cat="residencial" onclick="openCategory('residencial')">
                         <span class="cat-num">03</span>
-                        <div class="cat-icon h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center mb-5">
-                            <span class="material-symbols-outlined" style="font-size:36px">home_work</span>
+                        <div class="cat-icon h-16 w-16 bg-primary/8 rounded-2xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-primary" style="font-size:36px">home_work</span>
                         </div>
-                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Residencial</h3>
-                        <p class="cat-desc text-white/60 text-xs leading-snug">Gestión y control de comunidades</p>
-                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
+                        <h3 class="cat-label font-extrabold text-slate-900 text-lg mb-1.5">Residencial</h3>
+                        <p class="cat-desc text-slate-500 text-sm leading-snug pr-6">Gestión y control de comunidades</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:22px">arrow_forward</span>
                     </div>
 
                     <!-- 4. Productividad -->
-                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="productividad" onclick="openCategory('productividad')">
+                    <div class="cat-card rounded-2xl p-7 lg:p-8 text-left relative" data-cat="productividad" onclick="openCategory('productividad')">
                         <span class="cat-num">04</span>
-                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
-                            <span class="material-symbols-outlined text-3xl">rocket_launch</span>
+                        <div class="cat-icon h-16 w-16 bg-primary/8 rounded-2xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-primary" style="font-size:36px">rocket_launch</span>
                         </div>
-                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Productividad</h3>
-                        <p class="cat-desc text-white/60 text-xs leading-snug">Equipos y reuniones inteligentes</p>
-                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
+                        <h3 class="cat-label font-extrabold text-slate-900 text-lg mb-1.5">Productividad</h3>
+                        <p class="cat-desc text-slate-500 text-sm leading-snug pr-6">Equipos y reuniones inteligentes</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:22px">arrow_forward</span>
                     </div>
 
                     <!-- 5. Promoción -->
-                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="fidelidad" onclick="openCategory('fidelidad')">
+                    <div class="cat-card rounded-2xl p-7 lg:p-8 text-left relative" data-cat="fidelidad" onclick="openCategory('fidelidad')">
                         <span class="cat-num">05</span>
-                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
-                            <span class="material-symbols-outlined text-3xl">loyalty</span>
+                        <div class="cat-icon h-16 w-16 bg-primary/8 rounded-2xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-primary" style="font-size:36px">loyalty</span>
                         </div>
-                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Promoción</h3>
-                        <p class="cat-desc text-white/60 text-xs leading-snug">Fidelización y base de clientes</p>
-                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
+                        <h3 class="cat-label font-extrabold text-slate-900 text-lg mb-1.5">Promoción</h3>
+                        <p class="cat-desc text-slate-500 text-sm leading-snug pr-6">Fidelización y base de clientes</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:22px">arrow_forward</span>
                     </div>
 
                     <!-- 6. Salud -->
-                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="salud" onclick="openCategory('salud')">
+                    <div class="cat-card rounded-2xl p-7 lg:p-8 text-left relative" data-cat="salud" onclick="openCategory('salud')">
                         <span class="cat-num">06</span>
-                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
-                            <span class="material-symbols-outlined text-3xl">health_and_safety</span>
+                        <div class="cat-icon h-16 w-16 bg-primary/8 rounded-2xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-primary" style="font-size:36px">health_and_safety</span>
                         </div>
-                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Salud</h3>
-                        <p class="cat-desc text-white/60 text-xs leading-snug">Consultas y recordatorios médicos</p>
-                        <span class="click-hint material-symbols-outlined" style="font-size:20px">arrow_forward</span>
+                        <h3 class="cat-label font-extrabold text-slate-900 text-lg mb-1.5">Salud</h3>
+                        <p class="cat-desc text-slate-500 text-sm leading-snug pr-6">Consultas y recordatorios médicos</p>
+                        <span class="click-hint material-symbols-outlined" style="font-size:22px">arrow_forward</span>
                     </div>
 
                 </div>
             </div>
         </section>
 
-        <!-- ─── DETAIL PANEL ─── -->
-        <section id="detail-panel" class="bg-white border-t-4 border-secondary">
-            <div class="container mx-auto px-6 py-16" id="detail-content">
-                <!-- Filled dynamically by JS -->
-            </div>
+        <!-- Detail Panel -->
+        <section id="detail-panel" class="bg-background-light border-t border-slate-200">
+            <div class="container mx-auto px-6 py-16 lg:py-20" id="detail-content"></div>
         </section>
 
         <!-- Desarrollo personalizado -->
-        <section class="py-20 hero-gradient text-white relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10"><svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100"><path d="M0 100 L100 0 L100 100 Z" fill="currentColor"></path></svg></div>
-            <div class="container mx-auto px-6 relative z-10 text-center max-w-3xl">
-                <span class="material-symbols-outlined text-secondary mb-4" style="font-size:56px">build</span>
-                <h2 class="text-3xl md:text-4xl font-black mb-5">¿Necesitas algo <span class="text-secondary">diferente</span>?</h2>
-                <p class="text-lg text-blue-100 mb-10 leading-relaxed">En cada una de nuestras ramas —y más allá de ellas— podemos desarrollar soluciones 100% personalizadas. ¿Tienes una idea, un problema o necesitas una app o sistema a la medida? Nuestro equipo lo construye para ti.</p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="https://wa.me/50241251133?text=Necesito%20un%20desarrollo%20personalizado" class="px-8 py-4 bg-secondary text-primary font-bold rounded-xl hover:scale-105 active:scale-95 transition-all shadow-xl inline-flex items-center gap-2">
-                        Cuéntanos tu Idea <span class="material-symbols-outlined">chat</span>
-                    </a>
-                    <a href="index.html" class="px-8 py-4 bg-white/10 border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/20 transition-all">Volver al Inicio</a>
+        <section class="py-24 bg-white border-t border-slate-100">
+            <div class="container mx-auto px-6">
+                <div class="bg-primary rounded-[2rem] p-12 md:p-16 text-center text-white relative overflow-hidden max-w-5xl mx-auto">
+                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 bg-secondary/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10">
+                        <span class="material-symbols-outlined text-secondary mb-5" style="font-size:48px">build</span>
+                        <h2 class="text-3xl md:text-4xl font-black mb-5">¿Necesitas algo <span class="text-secondary">diferente</span>?</h2>
+                        <p class="text-lg text-blue-100 mb-10 leading-relaxed max-w-2xl mx-auto">En cada una de nuestras secciones —y más allá de ellas— podemos desarrollar soluciones 100% personalizadas. ¿Tienes una idea, un problema o necesitas una app o sistema a la medida? Nuestro equipo lo construye para ti.</p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <a href="https://wa.me/50241251133?text=Necesito%20un%20desarrollo%20personalizado" class="px-8 py-4 bg-secondary text-primary font-bold rounded-xl hover:scale-105 active:scale-95 transition-all shadow-xl inline-flex items-center gap-2">
+                                Cuéntanos tu Idea <span class="material-symbols-outlined">chat</span>
+                            </a>
+                            <a href="index.html" class="px-8 py-4 bg-white/10 border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/20 transition-all">Volver al Inicio</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-12">
+    <footer class="bg-slate-900 text-slate-400 py-16">
         <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
             <a href="index.html"><img src="logo.png" alt="SISDEL Logo" class="h-[50px] w-auto object-contain brightness-0 invert"></a>
             <p class="text-sm">© 2024 SISDEL - Sistemas de Desarrollo en Línea. Todos los derechos reservados.</p>
@@ -249,10 +230,7 @@
     <script>
         const categories = {
             seguridad: {
-                icon: 'shield',
-                color: 'red',
-                label: 'Seguridad Inteligente',
-                badge: 'Seguridad',
+                icon: 'shield', label: 'Seguridad Inteligente', badge: 'Seguridad',
                 intro: 'Integramos tecnología avanzada para garantizar la seguridad física y digital de condominios, empresas y comunidades. Desde sistemas de ingreso inteligente hasta herramientas de respuesta inmediata ante emergencias.',
                 features: [
                     { icon: 'door_sliding', title: 'Acceso Automatizado', desc: 'Equipos y sistemas para el ingreso automatizado a condominios, residenciales y empresas. Control remoto, lectores biométricos y gestión centralizada de accesos.' },
@@ -264,10 +242,7 @@
                 custom: 'También podemos desarrollar sistemas de seguridad personalizados para tu empresa: integración con cámaras existentes, software propio de monitoreo, o soluciones específicas para tu operación.',
             },
             restaurantes: {
-                icon: 'restaurant',
-                color: 'orange',
-                label: 'Restaurantes',
-                badge: 'Restaurantes',
+                icon: 'restaurant', label: 'Restaurantes', badge: 'Restaurantes',
                 intro: 'Optimizamos la experiencia gastronómica con tecnología que agiliza el servicio al cliente, mide los tiempos de respuesta de los meseros y brinda datos accionables para mejorar la operación de tu restaurante.',
                 features: [
                     { icon: 'timer', title: 'Medición de Tiempos de Respuesta', desc: 'Monitorea en tiempo real cuánto tarda cada mesero en atender, desde la solicitud del cliente hasta la entrega del servicio. Identifica cuellos de botella y optimiza turnos.' },
@@ -279,10 +254,7 @@
                 custom: '¿Tienes requerimientos específicos? Desarrollamos módulos personalizados: sistema de reservas, integración con delivery, manejo de inventario o programa de fidelidad propio para tu restaurante.',
             },
             residencial: {
-                icon: 'home_work',
-                color: 'emerald',
-                label: 'Gestión Residencial Integral',
-                badge: 'Residencial',
+                icon: 'home_work', label: 'Gestión Residencial Integral', badge: 'Residencial',
                 intro: 'Ofrecemos dos líneas de servicio para residenciales: la gestión administrativa completa de tu comunidad y Garita.app para el control inteligente de residentes y visitantes.',
                 features: [
                     { icon: 'account_balance', title: 'Gestión Administrativa de Residenciales', desc: 'Nos encargamos de la administración integral: cobros, contabilidad, control de mantenimiento, reportes financieros y comunicación con residentes. Tu residencial funcionando como reloj.' },
@@ -293,10 +265,7 @@
                 custom: 'Podemos personalizar módulos adicionales según las necesidades de tu residencial: aplicación propia para propietarios, integración con sistemas de portón o cámaras existentes, reportes financieros a medida.',
             },
             productividad: {
-                icon: 'rocket_launch',
-                color: 'violet',
-                label: 'Productividad',
-                badge: 'Productividad',
+                icon: 'rocket_launch', label: 'Productividad', badge: 'Productividad',
                 intro: 'Dos herramientas diseñadas para que tu equipo rinda al máximo: gestiona proyectos, mide resultados y transforma tus reuniones en acciones concretas con el poder de la inteligencia artificial.',
                 features: [
                     { icon: 'workspaces', title: 'SISDEL Workcenter', desc: 'Plataforma de gestión de equipos: mide productividad individual y grupal, visualiza resultados en dashboards, administra calendarios compartidos, asigna tareas y da seguimiento a objetivos.' },
@@ -307,10 +276,7 @@
                 custom: 'Si tu empresa necesita módulos específicos de gestión —control de proyectos por área, integración con tu ERP existente o un sistema de evaluación de desempeño personalizado— podemos desarrollarlo.',
             },
             fidelidad: {
-                icon: 'loyalty',
-                color: 'pink',
-                label: 'Promoción & Fidelidad',
-                badge: 'Promoción & Fidelidad',
+                icon: 'loyalty', label: 'Promoción & Fidelidad', badge: 'Promoción & Fidelidad',
                 intro: 'Con Fidelisis 2.0, transforma clientes ocasionales en embajadores de tu marca mediante programas de lealtad inteligentes, promociones escalables y una base de datos valiosa para tus campañas.',
                 features: [
                     { icon: 'card_giftcard', title: 'Fidelisis 2.0 — Programa de Lealtad', desc: 'Diseña programas de lealtad con recompensas progresivas que incentivan la recompra. Desde descuentos hasta experiencias exclusivas, todo automatizado y personalizable.' },
@@ -322,10 +288,7 @@
                 custom: '¿Quieres un programa de lealtad con tu propia marca y app? Construimos plataformas de fidelización completamente personalizadas para tu negocio o cadena.',
             },
             salud: {
-                icon: 'health_and_safety',
-                color: 'cyan',
-                label: 'Salud & Medicina',
-                badge: 'Salud & Medicina',
+                icon: 'health_and_safety', label: 'Salud & Medicina', badge: 'Salud & Medicina',
                 intro: 'Medisys es nuestra plataforma para el sector salud: permite a profesionales médicos gestionar consultas eficientemente y asegura que los pacientes sigan su tratamiento con recordatorios automatizados.',
                 features: [
                     { icon: 'clinical_notes', title: 'Gestión de Consultas Médicas', desc: 'El personal médico registra diagnósticos, recetas e indicaciones digitalmente. Historial clínico organizado, accesible y seguro para cada paciente, desde cualquier dispositivo.' },
@@ -338,43 +301,29 @@
             },
         };
 
-        // All categories share SISDEL brand colors in detail panel
-        const colorMap = {
-            red:     { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
-            orange:  { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
-            emerald: { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
-            violet:  { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
-            pink:    { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
-            cyan:    { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
-        };
-
         let currentCat = null;
 
         function openCategory(key) {
             const panel = document.getElementById('detail-panel');
             const content = document.getElementById('detail-content');
             const cat = categories[key];
-            const c = colorMap[cat.color];
 
-            // Update active card
             document.querySelectorAll('.cat-card').forEach(card => {
                 card.classList.toggle('active', card.dataset.cat === key);
             });
 
-            // If same category clicked again, toggle closed
             if (currentCat === key && panel.classList.contains('open')) {
                 panel.classList.remove('open');
+                document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
                 currentCat = null;
                 return;
             }
-
             currentCat = key;
 
-            // Render features HTML
             const featuresHTML = cat.features.map(f => `
                 <div class="feature-item flex items-start gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                    <div class="h-11 w-11 ${c.bg} rounded-xl flex items-center justify-center flex-shrink-0">
-                        <span class="material-symbols-outlined ${c.text}">${f.icon}</span>
+                    <div class="h-12 w-12 bg-primary/8 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span class="material-symbols-outlined text-primary">${f.icon}</span>
                     </div>
                     <div>
                         <h4 class="font-bold text-slate-900 mb-1">${f.title}</h4>
@@ -384,15 +333,16 @@
             `).join('');
 
             const chipsHTML = cat.chips.map(chip => `
-                <span class="px-3 py-1 rounded-full text-xs font-semibold border ${c.chip}">${chip}</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-primary/5 text-primary border border-primary/10">${chip}</span>
             `).join('');
+
+            const gridCols = cat.features.length === 2 ? '2' : '3';
 
             const newHTML = `
                 <div class="max-w-5xl mx-auto">
-                    <!-- Header -->
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10">
                         <div>
-                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full ${c.bg} ${c.text} text-xs font-bold uppercase tracking-wider mb-3 border ${c.border}">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-xs font-bold uppercase tracking-wider mb-3 border border-primary/10">
                                 <span class="material-symbols-outlined" style="font-size:16px">${cat.icon}</span>
                                 ${cat.badge}
                             </div>
@@ -404,19 +354,9 @@
                             Solicitar Información
                         </a>
                     </div>
-
-                    <!-- Intro -->
                     <p class="text-lg text-slate-600 leading-relaxed mb-8">${cat.intro}</p>
-
-                    <!-- Chips -->
                     <div class="flex flex-wrap gap-2 mb-10">${chipsHTML}</div>
-
-                    <!-- Features -->
-                    <div class="grid grid-cols-1 md:grid-cols-${cat.features.length === 2 ? '2' : '3'} gap-4 mb-10">
-                        ${featuresHTML}
-                    </div>
-
-                    <!-- Desarrollo personalizado -->
+                    <div class="grid grid-cols-1 md:grid-cols-${gridCols} gap-4 mb-10">${featuresHTML}</div>
                     <div class="bg-slate-800 text-white rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center gap-5">
                         <span class="material-symbols-outlined text-secondary flex-shrink-0" style="font-size:36px">build</span>
                         <div>
@@ -427,7 +367,6 @@
                 </div>
             `;
 
-            // If panel already open, fade out then swap content
             if (panel.classList.contains('open')) {
                 content.classList.add('fading');
                 setTimeout(() => {
