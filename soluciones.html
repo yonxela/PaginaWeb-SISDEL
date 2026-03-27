@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SISDEL - Soluciones Tecnológicas</title>
+    <meta name="description" content="Descubre las soluciones tecnológicas de SISDEL: Seguridad, Restaurantes, Residencial, Productividad, Fidelización y Salud. Automatización inteligente para tu empresa.">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%230048ad%22 font-family=%22Arial, sans-serif%22 font-weight=%22bold%22>S</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: { "primary": "#0048ad", "secondary": "#facc15", "background-light": "#f5f7f8", "background-dark": "#0f1723" },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal-right { opacity: 0; transform: translateX(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal-left.active, .reveal-right.active { opacity: 1; transform: translateX(0); }
+        .stagger-1 { transition-delay: 0.1s; } .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; } .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; } .stagger-6 { transition-delay: 0.6s; }
+        .solution-card { transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .solution-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(0, 72, 173, 0.15); }
+        .feature-chip { background: linear-gradient(135deg, rgba(0,72,173,0.08), rgba(0,72,173,0.03)); border: 1px solid rgba(0,72,173,0.1); }
+        .hero-gradient { background: linear-gradient(135deg, #0048ad 0%, #003080 50%, #001d52 100%); }
+        .section-alt { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); } });
+            }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('active');
+                else observer.observe(el);
+            });
+        });
+    </script>
+</head>
+<body class="bg-background-light text-slate-900 antialiased">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md">
+        <div class="container mx-auto px-6 h-24 flex items-center justify-between">
+            <a href="index.html" class="flex items-center"><img src="logo.png" alt="SISDEL Logo" class="h-[72px] w-auto object-contain"></a>
+            <nav class="hidden md:flex items-center gap-10">
+                <a class="text-sm font-semibold text-primary" href="soluciones.html">Soluciones</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="index.html#nosotros">Sobre Nosotros</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="index.html#vision">Visión</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="index.html#contacto">Contacto</a>
+            </nav>
+            <a href="https://wa.me/50241251133?text=Mas%20informacion%20Sisdel" class="hidden lg:block bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-primary/20">Empezar Ahora</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero-gradient text-white py-20 lg:py-28 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10"><svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100"><circle cx="80" cy="20" r="40" fill="currentColor"/><circle cx="10" cy="90" r="30" fill="currentColor"/></svg></div>
+            <div class="container mx-auto px-6 relative z-10 text-center max-w-4xl">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sm font-semibold mb-8 backdrop-blur-sm">
+                    <span class="material-symbols-outlined text-secondary text-base">auto_awesome</span> Ecosistema Completo de Soluciones
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight mb-6">Soluciones que <span class="text-secondary">Transforman</span> tu Negocio</h1>
+                <p class="text-lg md:text-xl text-blue-100 mb-10 max-w-3xl mx-auto leading-relaxed">Ofrecemos un ecosistema integral de productos y servicios tecnológicos diseñados para resolver los desafíos reales de tu empresa. Además, desarrollamos soluciones 100% personalizadas para necesidades específicas.</p>
+                <a href="https://wa.me/50241251133?text=Quiero%20conocer%20las%20soluciones%20SISDEL" class="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-primary font-bold rounded-xl hover:scale-105 active:scale-95 transition-all shadow-xl">
+                    Solicitar Consultoría Gratuita <span class="material-symbols-outlined">arrow_forward</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 1. SEGURIDAD -->
+        <section class="py-20 lg:py-28" id="seguridad">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="lg:w-1/2 reveal-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 text-red-600 text-xs font-bold uppercase tracking-wider mb-4 border border-red-100">
+                            <span class="material-symbols-outlined text-base">shield</span> Seguridad Inteligente
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-6">Protección y Control de <span class="text-primary">Acceso Automatizado</span></h2>
+                        <p class="text-lg text-slate-600 mb-8 leading-relaxed">Integramos tecnología avanzada para garantizar la seguridad física y digital de condominios, empresas y comunidades. Desde sistemas de ingreso inteligente hasta herramientas de respuesta inmediata ante emergencias.</p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">door_sliding</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Acceso Automatizado</h4><p class="text-sm text-slate-600">Equipos y sistemas para el ingreso automatizado a condominios, residenciales y empresas. Control remoto, lectores biométricos y gestión centralizada de accesos.</p></div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">apartment</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Garita.app — Sistema para Residentes</h4><p class="text-sm text-slate-600">Plataforma integral donde residentes pueden gestionar visitas, solicitar información, recibir notificaciones y mantener comunicación directa con la administración de su comunidad.</p></div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">crisis_alert</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Botón de Pánico Móvil</h4><p class="text-sm text-slate-600">Sistema de alerta de emergencia activado desde el celular. Envía notificaciones instantáneas con ubicación en tiempo real al equipo de seguridad para una respuesta inmediata.</p></div>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/50241251133?text=Quiero%20informacion%20sobre%20Seguridad%20SISDEL" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all">Solicitar Información <span class="material-symbols-outlined text-base">arrow_forward</span></a>
+                    </div>
+                    <div class="lg:w-1/2 reveal-right">
+                        <div class="bg-gradient-to-br from-red-50 to-blue-50 rounded-3xl p-8 border border-slate-100">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 text-center"><span class="material-symbols-outlined text-4xl text-primary mb-3">videocam</span><p class="text-sm font-bold text-slate-900">Videovigilancia</p></div>
+                                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 text-center"><span class="material-symbols-outlined text-4xl text-primary mb-3">fingerprint</span><p class="text-sm font-bold text-slate-900">Biométricos</p></div>
+                                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 text-center"><span class="material-symbols-outlined text-4xl text-primary mb-3">qr_code_scanner</span><p class="text-sm font-bold text-slate-900">QR & NFC</p></div>
+                                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 text-center"><span class="material-symbols-outlined text-4xl text-secondary mb-3">emergency</span><p class="text-sm font-bold text-slate-900">Pánico Móvil</p></div>
+                            </div>
+                            <div class="mt-6 bg-primary text-white rounded-2xl p-6 text-center">
+                                <span class="text-3xl font-black">Garita.app</span>
+                                <p class="text-blue-200 text-sm mt-2">Control total de tu residencial desde cualquier dispositivo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. RESTAURANTES -->
+        <section class="py-20 lg:py-28 section-alt" id="restaurantes">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row-reverse items-center gap-16">
+                    <div class="lg:w-1/2 reveal-right">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 text-orange-600 text-xs font-bold uppercase tracking-wider mb-4 border border-orange-100">
+                            <span class="material-symbols-outlined text-base">restaurant</span> Restaurantes
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-6">Servicio Ágil, <span class="text-primary">Clientes Satisfechos</span></h2>
+                        <p class="text-lg text-slate-600 mb-8 leading-relaxed">Optimizamos la experiencia gastronómica con tecnología que agiliza el servicio al cliente, mide los tiempos de respuesta de los meseros y brinda datos accionables para mejorar la operación de tu restaurante.</p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">timer</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Medición de Tiempos de Respuesta</h4><p class="text-sm text-slate-600">Monitorea en tiempo real cuánto tarda cada mesero en atender, desde la solicitud del cliente hasta la entrega del servicio. Identifica cuellos de botella y optimiza turnos.</p></div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">devices</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Sistema y Equipamiento Integral</h4><p class="text-sm text-slate-600">Proveemos el software y el hardware necesario para digitalizar la operación de tu restaurante. Llamadores de mesa, pantallas de cocina, y dashboards gerenciales.</p></div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">analytics</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Reportes y Métricas de Servicio</h4><p class="text-sm text-slate-600">Dashboards con KPIs de servicio al cliente: tiempos promedio, satisfacción, rendimiento por mesero y horarios pico para tomar decisiones basadas en datos.</p></div>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/50241251133?text=Quiero%20informacion%20sobre%20Restaurantes%20SISDEL" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all">Solicitar Información <span class="material-symbols-outlined text-base">arrow_forward</span></a>
+                    </div>
+                    <div class="lg:w-1/2 reveal-left">
+                        <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-3xl p-8 border border-slate-100">
+                            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 mb-4">
+                                <div class="flex items-center justify-between mb-4"><span class="text-sm font-bold text-slate-900">Rendimiento en Tiempo Real</span><span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded-full">● En vivo</span></div>
+                                <div class="space-y-3">
+                                    <div><div class="flex justify-between text-xs mb-1"><span class="text-slate-600">Mesa 1 — Tiempo de atención</span><span class="font-bold text-green-600">2:30 min</span></div><div class="h-2 bg-slate-100 rounded-full"><div class="h-2 bg-green-500 rounded-full" style="width: 35%"></div></div></div>
+                                    <div><div class="flex justify-between text-xs mb-1"><span class="text-slate-600">Mesa 5 — Tiempo de atención</span><span class="font-bold text-yellow-600">5:15 min</span></div><div class="h-2 bg-slate-100 rounded-full"><div class="h-2 bg-yellow-500 rounded-full" style="width: 65%"></div></div></div>
+                                    <div><div class="flex justify-between text-xs mb-1"><span class="text-slate-600">Mesa 8 — Tiempo de atención</span><span class="font-bold text-red-600">8:45 min</span></div><div class="h-2 bg-slate-100 rounded-full"><div class="h-2 bg-red-500 rounded-full" style="width: 90%"></div></div></div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="bg-white rounded-xl p-4 text-center shadow-sm"><span class="text-2xl font-black text-primary">3.2</span><p class="text-[10px] text-slate-500 font-medium mt-1">MIN PROMEDIO</p></div>
+                                <div class="bg-white rounded-xl p-4 text-center shadow-sm"><span class="text-2xl font-black text-green-600">94%</span><p class="text-[10px] text-slate-500 font-medium mt-1">SATISFACCIÓN</p></div>
+                                <div class="bg-white rounded-xl p-4 text-center shadow-sm"><span class="text-2xl font-black text-secondary">12</span><p class="text-[10px] text-slate-500 font-medium mt-1">MESAS ACTIVAS</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. RESIDENCIAL -->
+        <section class="py-20 lg:py-28" id="residencial">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="lg:w-1/2 reveal-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-xs font-bold uppercase tracking-wider mb-4 border border-emerald-100">
+                            <span class="material-symbols-outlined text-base">home_work</span> Residencial
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-6">Gestión Residencial <span class="text-primary">Integral</span></h2>
+                        <p class="text-lg text-slate-600 mb-8 leading-relaxed">Ofrecemos dos líneas de servicio para residenciales: la gestión administrativa completa de tu comunidad y nuestro poderoso sistema Garita.app para el control inteligente de residentes y visitantes.</p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">account_balance</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Gestión Administrativa de Residenciales</h4><p class="text-sm text-slate-600">Nos encargamos de la administración integral: cobros, contabilidad, control de mantenimiento, reportes financieros y comunicación con residentes. Tu residencial funcionando como reloj.</p></div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">badge</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Garita.app — Control de Residentes y Visitas</h4><p class="text-sm text-slate-600">Automatiza el registro de visitantes, gestiona accesos de residentes, lleva bitácora digital de entradas y salidas, y centraliza la comunicación entre garita, administración y propietarios.</p></div>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/50241251133?text=Quiero%20informacion%20sobre%20Residencial%20SISDEL" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all">Solicitar Información <span class="material-symbols-outlined text-base">arrow_forward</span></a>
+                    </div>
+                    <div class="lg:w-1/2 reveal-right">
+                        <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-3xl p-8 border border-slate-100">
+                            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 mb-4">
+                                <h4 class="font-bold text-slate-900 mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-primary">apartment</span> Panel Administrativo</h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-emerald-50 rounded-xl p-4 text-center"><span class="text-xl font-black text-emerald-600">Q 45,200</span><p class="text-[10px] text-slate-500 font-medium mt-1">RECAUDADO ESTE MES</p></div>
+                                    <div class="bg-blue-50 rounded-xl p-4 text-center"><span class="text-xl font-black text-primary">98%</span><p class="text-[10px] text-slate-500 font-medium mt-1">TASA DE COBRO</p></div>
+                                </div>
+                            </div>
+                            <div class="bg-primary text-white rounded-2xl p-6 text-center">
+                                <span class="text-3xl font-black">Garita.app</span>
+                                <p class="text-blue-200 text-sm mt-2">Visitas autorizadas · Bitácora digital · Comunicación directa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PRODUCTIVIDAD -->
+        <section class="py-20 lg:py-28 section-alt" id="productividad">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row-reverse items-center gap-16">
+                    <div class="lg:w-1/2 reveal-right">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-50 text-violet-600 text-xs font-bold uppercase tracking-wider mb-4 border border-violet-100">
+                            <span class="material-symbols-outlined text-base">rocket_launch</span> Productividad
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-6">Equipos más <span class="text-primary">Productivos</span>, Resultados Medibles</h2>
+                        <p class="text-lg text-slate-600 mb-8 leading-relaxed">Dos herramientas diseñadas para que tu equipo rinda al máximo: gestiona proyectos, mide resultados y transforma tus reuniones en acciones concretas con el poder de la inteligencia artificial.</p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">workspaces</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">SISDEL Workcenter</h4><p class="text-sm text-slate-600">Plataforma de gestión de equipos de trabajo: mide productividad individual y grupal, visualiza resultados en dashboards, administra calendarios compartidos, asigna tareas y da seguimiento al cumplimiento de objetivos.</p></div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">groups</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">SISDEL Meets</h4><p class="text-sm text-slate-600">Revoluciona tus reuniones: segmenta temas, controla tiempos por tema y por reunión, asigna y delega tareas directamente. Incluye IA avanzada que genera resúmenes automáticos, identifica pendientes y facilita el seguimiento post-reunión.</p></div>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/50241251133?text=Quiero%20informacion%20sobre%20Productividad%20SISDEL" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all">Solicitar Información <span class="material-symbols-outlined text-base">arrow_forward</span></a>
+                    </div>
+                    <div class="lg:w-1/2 reveal-left">
+                        <div class="bg-gradient-to-br from-violet-50 to-indigo-50 rounded-3xl p-8 border border-slate-100">
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                                    <div class="flex items-center gap-3 mb-3"><span class="material-symbols-outlined text-primary">workspaces</span><span class="font-bold text-slate-900">Workcenter</span></div>
+                                    <div class="flex gap-2 flex-wrap"><span class="feature-chip rounded-full px-3 py-1 text-xs font-medium text-primary">Calendario</span><span class="feature-chip rounded-full px-3 py-1 text-xs font-medium text-primary">Tareas</span><span class="feature-chip rounded-full px-3 py-1 text-xs font-medium text-primary">KPIs</span><span class="feature-chip rounded-full px-3 py-1 text-xs font-medium text-primary">Reportes</span></div>
+                                </div>
+                                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                                    <div class="flex items-center gap-3 mb-3"><span class="material-symbols-outlined text-primary">groups</span><span class="font-bold text-slate-900">Meets</span><span class="bg-violet-100 text-violet-700 text-[10px] font-bold px-2 py-0.5 rounded-full">IA INTEGRADA</span></div>
+                                    <div class="flex gap-2 flex-wrap"><span class="feature-chip rounded-full px-3 py-1 text-xs font-medium text-primary">Resumen IA</span><span class="feature-chip rounded-full px-3 py-1 text-xs font-medium text-primary">Timer</span><span class="feature-chip rounded-full px-3 py-1 text-xs font-medium text-primary">Tareas</span><span class="feature-chip rounded-full px-3 py-1 text-xs font-medium text-primary">Seguimiento</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. PROMOCIÓN & FIDELIDAD -->
+        <section class="py-20 lg:py-28" id="fidelidad">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-16">
+                    <div class="lg:w-1/2 reveal-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-50 text-pink-600 text-xs font-bold uppercase tracking-wider mb-4 border border-pink-100">
+                            <span class="material-symbols-outlined text-base">loyalty</span> Promoción & Fidelidad
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-6">Clientes que <span class="text-primary">Regresan</span>, Negocio que Crece</h2>
+                        <p class="text-lg text-slate-600 mb-8 leading-relaxed">Con Fidelisis 2.0, transforma clientes ocasionales en embajadores de tu marca mediante programas de lealtad inteligentes y promociones escalables que generan recompra y construyen una base de datos valiosa.</p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">card_giftcard</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Promociones Escalables</h4><p class="text-sm text-slate-600">Diseña programas de lealtad con recompensas progresivas que incentivan la recompra. Desde descuentos hasta experiencias exclusivas, todo automatizado.</p></div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">database</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Base de Datos de Clientes</h4><p class="text-sm text-slate-600">Captura datos clave de cada cliente para crear campañas de difusión segmentadas, enviar ofertas personalizadas y medir el engagement de tu audiencia.</p></div>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/50241251133?text=Quiero%20informacion%20sobre%20Fidelisis%20SISDEL" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all">Solicitar Información <span class="material-symbols-outlined text-base">arrow_forward</span></a>
+                    </div>
+                    <div class="lg:w-1/2 reveal-right">
+                        <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-3xl p-8 border border-slate-100 text-center">
+                            <div class="bg-primary text-white rounded-2xl p-8 mb-4">
+                                <span class="text-4xl font-black">Fidelisis 2.0</span>
+                                <p class="text-blue-200 text-sm mt-3">Fidelización inteligente impulsada por datos</p>
+                            </div>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="bg-white rounded-xl p-4 shadow-sm"><span class="text-2xl font-black text-primary">+40%</span><p class="text-[10px] text-slate-500 font-medium mt-1">RECOMPRA</p></div>
+                                <div class="bg-white rounded-xl p-4 shadow-sm"><span class="text-2xl font-black text-pink-600">3x</span><p class="text-[10px] text-slate-500 font-medium mt-1">ENGAGEMENT</p></div>
+                                <div class="bg-white rounded-xl p-4 shadow-sm"><span class="text-2xl font-black text-secondary">∞</span><p class="text-[10px] text-slate-500 font-medium mt-1">ESCALABLE</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. SALUD & MEDICINA -->
+        <section class="py-20 lg:py-28 section-alt" id="salud">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row-reverse items-center gap-16">
+                    <div class="lg:w-1/2 reveal-right">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-50 text-cyan-600 text-xs font-bold uppercase tracking-wider mb-4 border border-cyan-100">
+                            <span class="material-symbols-outlined text-base">health_and_safety</span> Salud & Medicina
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-6">Atención Médica <span class="text-primary">Inteligente</span></h2>
+                        <p class="text-lg text-slate-600 mb-8 leading-relaxed">Medisys es nuestra plataforma para el sector salud: permite a profesionales médicos gestionar consultas de forma eficiente y asegura que los pacientes sigan su tratamiento con un sistema de recordatorios automatizado.</p>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">clinical_notes</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Gestión de Consultas Médicas</h4><p class="text-sm text-slate-600">El personal médico registra diagnósticos, recetas e indicaciones de forma digital. Historial clínico organizado, accesible y seguro para cada paciente.</p></div>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-100">
+                                <span class="material-symbols-outlined text-primary mt-0.5">notifications_active</span>
+                                <div><h4 class="font-bold text-slate-900 mb-1">Recordatorios Inteligentes al Paciente</h4><p class="text-sm text-slate-600">Sistema automatizado que envía recordatorios según la receta médica: horarios de medicación, citas de seguimiento y recomendaciones del doctor. Mejora la adherencia al tratamiento.</p></div>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/50241251133?text=Quiero%20informacion%20sobre%20Medisys%20SISDEL" class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all">Solicitar Información <span class="material-symbols-outlined text-base">arrow_forward</span></a>
+                    </div>
+                    <div class="lg:w-1/2 reveal-left">
+                        <div class="bg-gradient-to-br from-cyan-50 to-sky-50 rounded-3xl p-8 border border-slate-100">
+                            <div class="bg-primary text-white rounded-2xl p-8 mb-4 text-center">
+                                <span class="material-symbols-outlined text-5xl mb-2">local_hospital</span>
+                                <span class="text-3xl font-black block">Medisys</span>
+                                <p class="text-blue-200 text-sm mt-2">Gestión clínica + Recordatorios al paciente</p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="bg-white rounded-xl p-4 text-center shadow-sm"><span class="material-symbols-outlined text-2xl text-cyan-600 mb-1">folder_shared</span><p class="text-xs font-bold text-slate-900">Historial Digital</p></div>
+                                <div class="bg-white rounded-xl p-4 text-center shadow-sm"><span class="material-symbols-outlined text-2xl text-cyan-600 mb-1">alarm</span><p class="text-xs font-bold text-slate-900">Recordatorios</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DESARROLLO PERSONALIZADO -->
+        <section class="py-20 lg:py-28 bg-primary text-white relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10"><svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100"><path d="M0 100 L100 0 L100 100 Z" fill="currentColor"></path></svg></div>
+            <div class="container mx-auto px-6 relative z-10 text-center max-w-4xl reveal">
+                <span class="material-symbols-outlined text-secondary text-6xl mb-6">build</span>
+                <h2 class="text-3xl md:text-5xl font-black mb-6">¿Necesitas algo <span class="text-secondary">diferente</span>?</h2>
+                <p class="text-xl text-blue-100 mb-10 leading-relaxed max-w-3xl mx-auto">En SISDEL no nos limitamos a nuestros productos existentes. Si tienes una idea, un problema operativo o necesitas una aplicación o sistema a la medida, nuestro equipo de desarrollo puede construirlo para ti. Desde apps móviles hasta plataformas empresariales completas.</p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="https://wa.me/50241251133?text=Necesito%20un%20desarrollo%20personalizado" class="px-8 py-4 bg-secondary text-primary font-bold rounded-xl hover:scale-105 active:scale-95 transition-all shadow-xl inline-flex items-center gap-2">
+                        Cuéntanos tu Idea <span class="material-symbols-outlined">chat</span>
+                    </a>
+                    <a href="index.html" class="px-8 py-4 bg-white/10 border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/20 transition-all">Volver al Inicio</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-16">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <a href="index.html"><img src="logo.png" alt="SISDEL Logo" class="h-[50px] w-auto object-contain brightness-0 invert"></a>
+                <p class="text-sm">© 2024 SISDEL - Sistemas de Desarrollo en Línea. Todos los derechos reservados.</p>
+                <div class="flex gap-6 text-xs"><a class="hover:text-white" href="#">Privacidad</a><a class="hover:text-white" href="#">Términos</a></div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
