@@ -127,20 +127,30 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                threshold: 0.05,
+                rootMargin: '0px 0px -30px 0px'
             };
 
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
+                        revealObserver.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
             const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .img-reveal');
-            revealElements.forEach(el => revealObserver.observe(el));
+
+            // Activate elements already visible in viewport immediately
+            revealElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    el.classList.add('active');
+                } else {
+                    revealObserver.observe(el);
+                }
+            });
         });
     </script>
 </head>
@@ -227,7 +237,10 @@
                         <div
                             class="relative rounded-2xl overflow-hidden shadow-2xl border-1 border-slate-200 dark:border-slate-800 animate-float transform lg:scale-110 lg:translate-x-4">
                             <img alt="Sistemas de Automatización SISDEL" class="w-full h-auto object-cover img-reveal"
-                                src="dashboard.png" />
+                                src="dashboard.png"
+                                loading="eager"
+                                fetchpriority="high"
+                                onerror="this.onerror=null; this.style.minHeight='300px'; this.style.background='linear-gradient(135deg,#0048ad22,#0048ad11)';" />
                         </div>
                     </div>
                 </div>
