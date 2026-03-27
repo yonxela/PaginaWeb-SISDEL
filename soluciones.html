@@ -23,23 +23,53 @@
     <style>
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
 
-        /* Category Cards */
+        /* ── Category Cards ── */
         .cat-card {
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-            border: 2px solid transparent;
+            background: linear-gradient(160deg, #0048ad 0%, #003080 100%);
+            border: 3px solid transparent;
+            transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
-        .cat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,72,173,0.12); }
+        .cat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(250,204,21,0.06) 0%, transparent 60%);
+            transition: opacity 0.35s;
+            opacity: 0;
+        }
+        .cat-card:hover::before { opacity: 1; }
+        .cat-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: #facc15;
+            box-shadow: 0 20px 50px rgba(0,72,173,0.35);
+        }
         .cat-card.active {
-            border-color: #0048ad;
-            background: linear-gradient(135deg, #0048ad, #003080);
-            color: white;
-            transform: translateY(-4px);
-            box-shadow: 0 16px 40px rgba(0,72,173,0.25);
+            background: linear-gradient(160deg, #facc15 0%, #f59e0b 100%);
+            border-color: #facc15;
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 24px 55px rgba(250,204,21,0.35);
         }
-        .cat-card.active .cat-icon { background: rgba(255,255,255,0.15); color: white; }
-        .cat-card.active .cat-label { color: white; }
-        .cat-card.active .cat-desc { color: rgba(255,255,255,0.75); }
+        .cat-card.active .cat-icon { background: rgba(0,72,173,0.15); }
+        .cat-card.active .cat-icon span { color: #0048ad; }
+        .cat-card.active .cat-label { color: #0a1628; }
+        .cat-card.active .cat-desc { color: rgba(10,22,40,0.7); }
+        .cat-card.active .cat-num { color: rgba(0,72,173,0.3); }
+
+        /* number */
+        .cat-num {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1;
+            color: rgba(255,255,255,0.08);
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            font-family: 'Inter', sans-serif;
+        }
+        .cat-icon span { color: #facc15; }
 
         /* Detail panel */
         #detail-panel {
@@ -48,21 +78,20 @@
             transition: max-height 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
             opacity: 0;
         }
-        #detail-panel.open {
-            max-height: 2000px;
-            opacity: 1;
-        }
+        #detail-panel.open { max-height: 2000px; opacity: 1; }
 
-        /* Fade in for detail content */
         #detail-content { transition: opacity 0.3s ease; }
         #detail-content.fading { opacity: 0; }
 
-        .feature-item {
-            transition: all 0.2s;
-        }
+        .feature-item { transition: all 0.2s; }
         .feature-item:hover { background: #f1f5f9; }
 
         .hero-gradient { background: linear-gradient(135deg, #0048ad 0%, #003080 50%, #001d52 100%); }
+
+        /* cards section bg */
+        .cards-section {
+            background: linear-gradient(180deg, #0a1628 0%, #0f1e38 100%);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-900 antialiased">
@@ -84,86 +113,83 @@
     </header>
 
     <main>
-        <!-- Hero -->
-        <section class="hero-gradient text-white py-16 lg:py-24 relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10">
-                <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
-                    <circle cx="80" cy="20" r="40" fill="currentColor"/>
-                    <circle cx="10" cy="90" r="30" fill="currentColor"/>
-                </svg>
-            </div>
-            <div class="container mx-auto px-6 relative z-10 text-center max-w-4xl">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sm font-semibold mb-6 backdrop-blur-sm">
-                    <span class="material-symbols-outlined text-secondary" style="font-size:18px">auto_awesome</span>
-                    Ecosistema de Soluciones Tecnológicas
+        <!-- Hero compacto -->
+        <section class="cards-section text-white pt-12 pb-0 relative overflow-hidden">
+            <div class="container mx-auto px-6 relative z-10 text-center max-w-3xl mb-10">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sm font-semibold mb-5 backdrop-blur-sm">
+                    <span class="material-symbols-outlined text-secondary" style="font-size:16px">auto_awesome</span>
+                    Ecosistema Tecnológico SISDEL
                 </div>
-                <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight mb-5">
-                    Nuestras <span class="text-secondary">Soluciones</span>
+                <h1 class="text-4xl md:text-5xl font-black leading-tight tracking-tight mb-4">
+                    Nuestras <span class="text-secondary">6 Soluciones</span>
                 </h1>
-                <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
-                    Explora las 6 ramas de innovación que ofrecemos. Selecciona la que se adapta a tu negocio y descubre cómo podemos transformarlo.
+                <p class="text-base text-blue-200 max-w-xl mx-auto">
+                    Selecciona una rama y descubre cómo transformamos tu negocio.
                 </p>
             </div>
-        </section>
 
         <!-- ─── 6 CATEGORY CARDS ─── -->
-        <section class="py-16 bg-white" id="categorias">
-            <div class="container mx-auto px-6">
-                <p class="text-center text-slate-500 font-semibold text-sm uppercase tracking-widest mb-10">Selecciona una rama para ver el detalle</p>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" id="cards-grid">
+            <div class="container mx-auto px-4 pb-0" id="categorias">
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 lg:gap-4" id="cards-grid">
 
                     <!-- 1. Seguridad -->
-                    <div class="cat-card bg-white rounded-2xl p-6 text-center shadow-sm" data-cat="seguridad" onclick="openCategory('seguridad')">
-                        <div class="cat-icon h-14 w-14 bg-red-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                            <span class="material-symbols-outlined text-3xl text-red-500">shield</span>
+                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="seguridad" onclick="openCategory('seguridad')">
+                        <span class="cat-num">01</span>
+                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-3xl">shield</span>
                         </div>
-                        <h3 class="cat-label font-bold text-slate-900 text-sm mb-1">Seguridad</h3>
-                        <p class="cat-desc text-slate-500 text-xs leading-tight">Acceso, vigilancia y emergencias</p>
+                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Seguridad</h3>
+                        <p class="cat-desc text-white/60 text-xs leading-snug">Acceso, vigilancia y emergencias</p>
                     </div>
 
                     <!-- 2. Restaurantes -->
-                    <div class="cat-card bg-white rounded-2xl p-6 text-center shadow-sm" data-cat="restaurantes" onclick="openCategory('restaurantes')">
-                        <div class="cat-icon h-14 w-14 bg-orange-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                            <span class="material-symbols-outlined text-3xl text-orange-500">restaurant</span>
+                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="restaurantes" onclick="openCategory('restaurantes')">
+                        <span class="cat-num">02</span>
+                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-3xl">restaurant</span>
                         </div>
-                        <h3 class="cat-label font-bold text-slate-900 text-sm mb-1">Restaurantes</h3>
-                        <p class="cat-desc text-slate-500 text-xs leading-tight">Servicio ágil y tiempos medidos</p>
+                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Restaurantes</h3>
+                        <p class="cat-desc text-white/60 text-xs leading-snug">Servicio ágil y tiempos medidos</p>
                     </div>
 
                     <!-- 3. Residencial -->
-                    <div class="cat-card bg-white rounded-2xl p-6 text-center shadow-sm" data-cat="residencial" onclick="openCategory('residencial')">
-                        <div class="cat-icon h-14 w-14 bg-emerald-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                            <span class="material-symbols-outlined text-3xl text-emerald-500">home_work</span>
+                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="residencial" onclick="openCategory('residencial')">
+                        <span class="cat-num">03</span>
+                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-3xl">home_work</span>
                         </div>
-                        <h3 class="cat-label font-bold text-slate-900 text-sm mb-1">Residencial</h3>
-                        <p class="cat-desc text-slate-500 text-xs leading-tight">Gestión y control de comunidades</p>
+                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Residencial</h3>
+                        <p class="cat-desc text-white/60 text-xs leading-snug">Gestión y control de comunidades</p>
                     </div>
 
                     <!-- 4. Productividad -->
-                    <div class="cat-card bg-white rounded-2xl p-6 text-center shadow-sm" data-cat="productividad" onclick="openCategory('productividad')">
-                        <div class="cat-icon h-14 w-14 bg-violet-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                            <span class="material-symbols-outlined text-3xl text-violet-500">rocket_launch</span>
+                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="productividad" onclick="openCategory('productividad')">
+                        <span class="cat-num">04</span>
+                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-3xl">rocket_launch</span>
                         </div>
-                        <h3 class="cat-label font-bold text-slate-900 text-sm mb-1">Productividad</h3>
-                        <p class="cat-desc text-slate-500 text-xs leading-tight">Equipos y reuniones inteligentes</p>
+                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Productividad</h3>
+                        <p class="cat-desc text-white/60 text-xs leading-snug">Equipos y reuniones inteligentes</p>
                     </div>
 
                     <!-- 5. Promoción -->
-                    <div class="cat-card bg-white rounded-2xl p-6 text-center shadow-sm" data-cat="fidelidad" onclick="openCategory('fidelidad')">
-                        <div class="cat-icon h-14 w-14 bg-pink-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                            <span class="material-symbols-outlined text-3xl text-pink-500">loyalty</span>
+                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="fidelidad" onclick="openCategory('fidelidad')">
+                        <span class="cat-num">05</span>
+                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-3xl">loyalty</span>
                         </div>
-                        <h3 class="cat-label font-bold text-slate-900 text-sm mb-1">Promoción</h3>
-                        <p class="cat-desc text-slate-500 text-xs leading-tight">Fidelización y base de clientes</p>
+                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Promoción</h3>
+                        <p class="cat-desc text-white/60 text-xs leading-snug">Fidelización y base de clientes</p>
                     </div>
 
                     <!-- 6. Salud -->
-                    <div class="cat-card bg-white rounded-2xl p-6 text-center shadow-sm" data-cat="salud" onclick="openCategory('salud')">
-                        <div class="cat-icon h-14 w-14 bg-cyan-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                            <span class="material-symbols-outlined text-3xl text-cyan-500">health_and_safety</span>
+                    <div class="cat-card rounded-2xl p-5 lg:p-7 text-left shadow-xl relative" data-cat="salud" onclick="openCategory('salud')">
+                        <span class="cat-num">06</span>
+                        <div class="cat-icon h-12 w-12 bg-white/10 rounded-xl flex items-center justify-center mb-5">
+                            <span class="material-symbols-outlined text-3xl">health_and_safety</span>
                         </div>
-                        <h3 class="cat-label font-bold text-slate-900 text-sm mb-1">Salud</h3>
-                        <p class="cat-desc text-slate-500 text-xs leading-tight">Consultas y recordatorios médicos</p>
+                        <h3 class="cat-label font-extrabold text-white text-base mb-1 leading-tight">Salud</h3>
+                        <p class="cat-desc text-white/60 text-xs leading-snug">Consultas y recordatorios médicos</p>
                     </div>
 
                 </div>
@@ -171,7 +197,7 @@
         </section>
 
         <!-- ─── DETAIL PANEL ─── -->
-        <section id="detail-panel" class="bg-gray-50 border-t border-slate-200">
+        <section id="detail-panel" class="bg-white border-t-4 border-secondary">
             <div class="container mx-auto px-6 py-16" id="detail-content">
                 <!-- Filled dynamically by JS -->
             </div>
@@ -295,13 +321,14 @@
             },
         };
 
+        // All categories share SISDEL brand colors in detail panel
         const colorMap = {
-            red: { bg: 'bg-red-50', text: 'text-red-600', border: 'border-red-200', chip: 'bg-red-50 text-red-700 border-red-100' },
-            orange: { bg: 'bg-orange-50', text: 'text-orange-600', border: 'border-orange-200', chip: 'bg-orange-50 text-orange-700 border-orange-100' },
-            emerald: { bg: 'bg-emerald-50', text: 'text-emerald-600', border: 'border-emerald-200', chip: 'bg-emerald-50 text-emerald-700 border-emerald-100' },
-            violet: { bg: 'bg-violet-50', text: 'text-violet-600', border: 'border-violet-200', chip: 'bg-violet-50 text-violet-700 border-violet-100' },
-            pink: { bg: 'bg-pink-50', text: 'text-pink-600', border: 'border-pink-200', chip: 'bg-pink-50 text-pink-700 border-pink-100' },
-            cyan: { bg: 'bg-cyan-50', text: 'text-cyan-600', border: 'border-cyan-200', chip: 'bg-cyan-50 text-cyan-700 border-cyan-100' },
+            red:     { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
+            orange:  { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
+            emerald: { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
+            violet:  { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
+            pink:    { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
+            cyan:    { bg: 'bg-blue-50', text: 'text-primary', border: 'border-blue-200', chip: 'bg-blue-50 text-primary border-blue-100' },
         };
 
         let currentCat = null;
