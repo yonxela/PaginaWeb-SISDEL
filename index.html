@@ -126,11 +126,9 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = {
-                threshold: 0.05,
-                rootMargin: '0px 0px -30px 0px'
-            };
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .img-reveal');
 
+            // More aggressive observer — triggers when element is 200px before entering viewport
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -138,19 +136,39 @@
                         revealObserver.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
+            }, { threshold: 0.01, rootMargin: '0px 0px 200px 0px' });
 
-            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .img-reveal');
+            function checkAndReveal() {
+                revealElements.forEach(el => {
+                    if (el.classList.contains('active')) return;
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight + 100 && rect.bottom > -100) {
+                        el.classList.add('active');
+                    }
+                });
+            }
 
-            // Activate elements already visible in viewport immediately
-            revealElements.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    el.classList.add('active');
-                } else {
-                    revealObserver.observe(el);
-                }
-            });
+            // Observe all elements
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // Immediate check for elements already in viewport
+            checkAndReveal();
+
+            // Re-check after hash navigation scroll completes
+            setTimeout(checkAndReveal, 500);
+            setTimeout(checkAndReveal, 1000);
+
+            // Listen to scroll as fallback
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(checkAndReveal, 50);
+            }, { passive: true });
+
+            // Safety net: after 3 seconds, reveal everything that's still hidden
+            setTimeout(() => {
+                revealElements.forEach(el => el.classList.add('active'));
+            }, 3000);
         });
     </script>
 </head>
