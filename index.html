@@ -128,7 +128,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .img-reveal');
 
-            // More aggressive observer — triggers when element is 200px before entering viewport
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -136,39 +135,27 @@
                         revealObserver.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.01, rootMargin: '0px 0px 200px 0px' });
+            }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
 
-            function checkAndReveal() {
+            // Only activate elements already visible in viewport right now
+            function activateVisible() {
                 revealElements.forEach(el => {
                     if (el.classList.contains('active')) return;
                     const rect = el.getBoundingClientRect();
-                    if (rect.top < window.innerHeight + 100 && rect.bottom > -100) {
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
                         el.classList.add('active');
                     }
                 });
             }
 
-            // Observe all elements
+            // Observe ALL elements for scroll-based reveal
             revealElements.forEach(el => revealObserver.observe(el));
 
-            // Immediate check for elements already in viewport
-            checkAndReveal();
-
-            // Re-check after hash navigation scroll completes
-            setTimeout(checkAndReveal, 500);
-            setTimeout(checkAndReveal, 1000);
-
-            // Listen to scroll as fallback
-            let scrollTimeout;
-            window.addEventListener('scroll', () => {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(checkAndReveal, 50);
-            }, { passive: true });
-
-            // Safety net: after 3 seconds, reveal everything that's still hidden
-            setTimeout(() => {
-                revealElements.forEach(el => el.classList.add('active'));
-            }, 3000);
+            // Activate only what's currently visible (above fold or hash target)
+            activateVisible();
+            // Re-check after browser finishes hash scroll
+            setTimeout(activateVisible, 300);
+            setTimeout(activateVisible, 800);
         });
     </script>
 </head>
