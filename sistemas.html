@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SISDEL - Nuestros Sistemas</title>
+    <meta name="description" content="Conoce todos los sistemas y plataformas de SISDEL: Garita.app, Workcenter, Medisys, Meets, ServiQR, SISDEL ONE, SISDEL GO y Fidelisis 2.0.">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%230048ad%22 font-family=%22Arial, sans-serif%22 font-weight=%22bold%22>S</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: { "primary": "#0048ad", "secondary": "#facc15", "background-light": "#f5f7f8" },
+                    fontFamily: { "display": ["Inter", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+
+        .system-card {
+            position: relative;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            text-decoration: none;
+            display: block;
+        }
+        .system-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            transition: height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .system-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+            border-color: transparent;
+        }
+        .system-card:hover::before {
+            height: 6px;
+        }
+        .system-card:hover .sys-arrow {
+            transform: translateX(4px);
+            opacity: 1;
+        }
+        .system-card:hover .sys-icon-box {
+            transform: scale(1.05);
+        }
+
+        .sys-arrow {
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+        .sys-icon-box {
+            transition: transform 0.3s;
+        }
+
+        /* Card accent colors */
+        .card-garita::before { background: linear-gradient(90deg, #0048ad, #3b82f6); }
+        .card-garita .sys-icon-box { background: linear-gradient(135deg, #0048ad15, #3b82f615); }
+        .card-garita .sys-icon { color: #0048ad; }
+        .card-garita .sys-tag { background: #0048ad10; color: #0048ad; border: 1px solid #0048ad20; }
+
+        .card-workcenter::before { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+        .card-workcenter .sys-icon-box { background: linear-gradient(135deg, #7c3aed15, #a78bfa15); }
+        .card-workcenter .sys-icon { color: #7c3aed; }
+        .card-workcenter .sys-tag { background: #7c3aed10; color: #7c3aed; border: 1px solid #7c3aed20; }
+
+        .card-medisys::before { background: linear-gradient(90deg, #0d9488, #2dd4bf); }
+        .card-medisys .sys-icon-box { background: linear-gradient(135deg, #0d948815, #2dd4bf15); }
+        .card-medisys .sys-icon { color: #0d9488; }
+        .card-medisys .sys-tag { background: #0d948810; color: #0d9488; border: 1px solid #0d948820; }
+
+        .card-meets::before { background: linear-gradient(90deg, #4f46e5, #818cf8); }
+        .card-meets .sys-icon-box { background: linear-gradient(135deg, #4f46e515, #818cf815); }
+        .card-meets .sys-icon { color: #4f46e5; }
+        .card-meets .sys-tag { background: #4f46e510; color: #4f46e5; border: 1px solid #4f46e520; }
+
+        .card-serviqr::before { background: linear-gradient(90deg, #ea580c, #fb923c); }
+        .card-serviqr .sys-icon-box { background: linear-gradient(135deg, #ea580c15, #fb923c15); }
+        .card-serviqr .sys-icon { color: #ea580c; }
+        .card-serviqr .sys-tag { background: #ea580c10; color: #ea580c; border: 1px solid #ea580c20; }
+
+        .card-one::before { background: linear-gradient(90deg, #059669, #34d399); }
+        .card-one .sys-icon-box { background: linear-gradient(135deg, #05966915, #34d39915); }
+        .card-one .sys-icon { color: #059669; }
+        .card-one .sys-tag { background: #05966910; color: #059669; border: 1px solid #05966920; }
+
+        .card-go::before { background: linear-gradient(90deg, #dc2626, #f87171); }
+        .card-go .sys-icon-box { background: linear-gradient(135deg, #dc262615, #f8717115); }
+        .card-go .sys-icon { color: #dc2626; }
+        .card-go .sys-tag { background: #dc262610; color: #dc2626; border: 1px solid #dc262620; }
+
+        .card-fidelisis::before { background: linear-gradient(90deg, #d97706, #fbbf24); }
+        .card-fidelisis .sys-icon-box { background: linear-gradient(135deg, #d9770615, #fbbf2415); }
+        .card-fidelisis .sys-icon { color: #d97706; }
+        .card-fidelisis .sys-tag { background: #d9770610; color: #d97706; border: 1px solid #d9770620; }
+
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .stagger-1 { transition-delay: 0.05s; }
+        .stagger-2 { transition-delay: 0.1s; }
+        .stagger-3 { transition-delay: 0.15s; }
+        .stagger-4 { transition-delay: 0.2s; }
+        .stagger-5 { transition-delay: 0.25s; }
+        .stagger-6 { transition-delay: 0.3s; }
+        .stagger-7 { transition-delay: 0.35s; }
+        .stagger-8 { transition-delay: 0.4s; }
+    </style>
+</head>
+<body class="bg-white text-slate-900 antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md">
+        <div class="container mx-auto px-6 h-24 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <img src="logo.png" alt="SISDEL Logo" class="h-[72px] w-auto object-contain">
+            </a>
+            <nav class="hidden md:flex items-center gap-10">
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="soluciones.html">Soluciones</a>
+                <a class="text-sm font-semibold text-primary border-b-2 border-primary pb-0.5" href="sistemas.html">Sistemas</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="index.html#nosotros">Sobre Nosotros</a>
+                <a class="text-sm font-semibold hover:text-primary transition-colors" href="index.html#contacto">Contacto</a>
+            </nav>
+            <a href="https://wa.me/50241251133?text=Mas%20informacion%20Sisdel" class="hidden lg:block bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-primary/20">Empezar Ahora</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="pt-20 pb-16 bg-white">
+            <div class="container mx-auto px-6 text-center max-w-4xl">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-primary text-sm font-semibold mb-6 reveal">
+                    <span class="material-symbols-outlined text-secondary" style="font-size:16px">deployed_code</span>
+                    Ecosistema de Plataformas
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-slate-900 mb-5 reveal">
+                    Nuestros <span class="text-primary underline decoration-secondary decoration-4 underline-offset-8">Sistemas</span>
+                </h1>
+                <p class="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed reveal">
+                    Plataformas robustas diseñadas para cada necesidad. Cada sistema es una solución completa, lista para transformar tu operación.
+                </p>
+            </div>
+        </section>
+
+        <!-- Systems Grid -->
+        <section class="pb-24 pt-4 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+
+                    <!-- 1. Garita.app -->
+                    <a href="garita.html" class="system-card card-garita reveal stagger-1">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="sys-icon-box h-16 w-16 rounded-2xl flex items-center justify-center">
+                                <span class="sys-icon material-symbols-outlined" style="font-size:32px">apartment</span>
+                            </div>
+                            <span class="sys-tag px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Residencial</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-2">Garita.app</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Plataforma integral para residenciales: gestión de visitantes, control de accesos, notificaciones a residentes y bitácora digital de entradas y salidas.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Control de Acceso</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Visitantes</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Bitácora Digital</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Plataforma Web & Móvil</span>
+                            <span class="sys-arrow material-symbols-outlined text-slate-400" style="font-size:20px">arrow_forward</span>
+                        </div>
+                    </a>
+
+                    <!-- 2. SISDEL Workcenter -->
+                    <a href="workcenter.html" class="system-card card-workcenter reveal stagger-2">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="sys-icon-box h-16 w-16 rounded-2xl flex items-center justify-center">
+                                <span class="sys-icon material-symbols-outlined" style="font-size:32px">workspaces</span>
+                            </div>
+                            <span class="sys-tag px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Productividad</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-2">SISDEL Workcenter</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Gestión de equipos de trabajo: mide productividad individual y grupal, dashboards de resultados, calendarios compartidos, asignación de tareas y seguimiento de objetivos.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">KPIs</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Calendario</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Tareas</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Plataforma Web</span>
+                            <span class="sys-arrow material-symbols-outlined text-slate-400" style="font-size:20px">arrow_forward</span>
+                        </div>
+                    </a>
+
+                    <!-- 3. Medisys -->
+                    <a href="medisys.html" class="system-card card-medisys reveal stagger-3">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="sys-icon-box h-16 w-16 rounded-2xl flex items-center justify-center">
+                                <span class="sys-icon material-symbols-outlined" style="font-size:32px">health_and_safety</span>
+                            </div>
+                            <span class="sys-tag px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Salud</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-2">Medisys</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Sistema médico integral: gestión de consultas, historial clínico digital, recetas electrónicas y recordatorios inteligentes de medicación para pacientes.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Historial Clínico</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Recetas</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Recordatorios</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Plataforma Web & Móvil</span>
+                            <span class="sys-arrow material-symbols-outlined text-slate-400" style="font-size:20px">arrow_forward</span>
+                        </div>
+                    </a>
+
+                    <!-- 4. SISDEL Meets -->
+                    <a href="meets.html" class="system-card card-meets reveal stagger-4">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="sys-icon-box h-16 w-16 rounded-2xl flex items-center justify-center">
+                                <span class="sys-icon material-symbols-outlined" style="font-size:32px">groups</span>
+                            </div>
+                            <span class="sys-tag px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Productividad</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-2">SISDEL Meets</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Reuniones potenciadas con IA: segmenta temas, controla tiempos, asigna tareas en vivo. La inteligencia artificial genera resúmenes automáticos y seguimiento post-reunión.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">IA Integrada</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Timer</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Resúmenes</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Plataforma Web</span>
+                            <span class="sys-arrow material-symbols-outlined text-slate-400" style="font-size:20px">arrow_forward</span>
+                        </div>
+                    </a>
+
+                    <!-- 5. ServiQR -->
+                    <a href="serviqr.html" class="system-card card-serviqr reveal stagger-5">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="sys-icon-box h-16 w-16 rounded-2xl flex items-center justify-center">
+                                <span class="sys-icon material-symbols-outlined" style="font-size:32px">qr_code_2</span>
+                            </div>
+                            <span class="sys-tag px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Restaurantes</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-2">ServiQR</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Medición de tiempos de atención en restaurantes mediante QR. Monitorea la respuesta de cada mesero, calificación del cliente y dashboards gerenciales en tiempo real.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Timer QR</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Calificación</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Dashboard</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Plataforma Web & QR</span>
+                            <span class="sys-arrow material-symbols-outlined text-slate-400" style="font-size:20px">arrow_forward</span>
+                        </div>
+                    </a>
+
+                    <!-- 6. SISDEL ONE -->
+                    <a href="sisdel-one.html" class="system-card card-one reveal stagger-6">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="sys-icon-box h-16 w-16 rounded-2xl flex items-center justify-center">
+                                <span class="sys-icon material-symbols-outlined" style="font-size:32px">account_balance</span>
+                            </div>
+                            <span class="sys-tag px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Residencial</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-2">SISDEL ONE</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Más que un sistema: una solución empresarial para la administración integral de condominios. Cobros, contabilidad, control operativo y reportes ejecutivos para residentes.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Cobros</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Contabilidad</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Reportes</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Plataforma Empresarial</span>
+                            <span class="sys-arrow material-symbols-outlined text-slate-400" style="font-size:20px">arrow_forward</span>
+                        </div>
+                    </a>
+
+                    <!-- 7. SISDEL GO -->
+                    <a href="sisdel-go.html" class="system-card card-go reveal stagger-7">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="sys-icon-box h-16 w-16 rounded-2xl flex items-center justify-center">
+                                <span class="sys-icon material-symbols-outlined" style="font-size:32px">crisis_alert</span>
+                            </div>
+                            <span class="sys-tag px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Seguridad</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-2">SISDEL GO</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Sistema de seguridad con botón de pánico móvil. Envía alertas instantáneas con ubicación GPS en tiempo real al equipo de seguridad para respuesta inmediata.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Botón de Pánico</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">GPS</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Alertas</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">App Móvil</span>
+                            <span class="sys-arrow material-symbols-outlined text-slate-400" style="font-size:20px">arrow_forward</span>
+                        </div>
+                    </a>
+
+                    <!-- 8. Fidelisis 2.0 -->
+                    <a href="fidelisis.html" class="system-card card-fidelisis reveal stagger-8">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="sys-icon-box h-16 w-16 rounded-2xl flex items-center justify-center">
+                                <span class="sys-icon material-symbols-outlined" style="font-size:32px">loyalty</span>
+                            </div>
+                            <span class="sys-tag px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Fidelización</span>
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-2">Fidelisis 2.0</h3>
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">Plataforma de lealtad y fidelización: programas de recompensas progresivas, base de datos de clientes, campañas segmentadas por WhatsApp, SMS y email.</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Recompensas</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">CRM</span>
+                            <span class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-500 border border-slate-100">Campañas</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Plataforma Web</span>
+                            <span class="sys-arrow material-symbols-outlined text-slate-400" style="font-size:20px">arrow_forward</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-16 bg-white border-t border-slate-100">
+            <div class="container mx-auto px-6">
+                <div class="bg-primary rounded-2xl p-8 md:p-10 text-center text-white max-w-3xl mx-auto reveal">
+                    <span class="material-symbols-outlined text-secondary mb-3" style="font-size:28px">build</span>
+                    <h2 class="text-xl md:text-2xl font-bold mb-3">¿Necesitas un sistema personalizado?</h2>
+                    <p class="text-sm text-blue-100 mb-6 leading-relaxed max-w-xl mx-auto">Desarrollamos plataformas a la medida de tu negocio. Cuéntanos tu idea y la construimos.</p>
+                    <a href="https://wa.me/50241251133?text=Necesito%20un%20sistema%20personalizado" class="inline-flex items-center gap-2 px-6 py-2.5 bg-secondary text-primary font-bold rounded-lg hover:scale-105 active:scale-95 transition-all shadow-md text-sm">
+                        Cuéntanos tu Idea <span class="material-symbols-outlined" style="font-size:18px">chat</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-16">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <a href="index.html"><img src="logo.png" alt="SISDEL Logo" class="h-[50px] w-auto object-contain brightness-0 invert"></a>
+            <p class="text-sm">© 2024 SISDEL - Sistemas de Desarrollo en Línea. Todos los derechos reservados.</p>
+            <div class="flex gap-6 text-xs"><a class="hover:text-white" href="#">Privacidad</a><a class="hover:text-white" href="#">Términos</a></div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const els = document.querySelectorAll('.reveal');
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('active'); obs.unobserve(e.target); } });
+            }, { threshold: 0.05 });
+            els.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('active');
+                else obs.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
