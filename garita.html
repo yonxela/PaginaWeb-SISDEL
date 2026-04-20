@@ -31,9 +31,19 @@
             </nav>
             <div class="flex items-center gap-4">
                 <a href="#acceder" class="hidden lg:block bg-[#0048ad] hover:bg-[#0048ad]/90 text-white px-6 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-[#0048ad]/20">Acceder al Sistema</a>
-                <a href="https://sisdel-gestion-laboral.onrender.com/" target="_blank" title="Gestión Laboral" class="h-9 w-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-all">
-                    <span class="material-symbols-outlined" style="font-size:18px">person</span>
-                </a>
+                <div class="relative" id="user-dropdown-wrap">
+                    <button onclick="document.getElementById('user-dropdown').classList.toggle('hidden')" class="h-9 w-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-all">
+                        <span class="material-symbols-outlined" style="font-size:18px">person</span>
+                    </button>
+                    <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-[60]">
+                        <a href="https://sisdel-gestion-laboral.onrender.com/" target="_blank" class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-primary/5 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined" style="font-size:18px">work</span> Gestión Laboral
+                        </a>
+                        <a href="https://cotizador-sisdel.onrender.com/static/index.html" target="_blank" class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-primary/5 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined" style="font-size:18px">request_quote</span> Cotizaciones
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -151,6 +161,7 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded',()=>{const o=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('active');o.unobserve(el.target)}})},{threshold:0.05});document.querySelectorAll('.reveal').forEach(el=>{const r=el.getBoundingClientRect();r.top<window.innerHeight&&r.bottom>0?el.classList.add('active'):o.observe(el)})});
+        document.addEventListener('click',function(e){const w=document.getElementById('user-dropdown-wrap'),d=document.getElementById('user-dropdown');if(w&&d&&!w.contains(e.target))d.classList.add('hidden')});
     </script>
 </body>
 </html>
